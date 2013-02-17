@@ -12,4 +12,8 @@ class CommandProcessorTest < MiniTest::Spec
     assert_equal "Parameter", TestApp.run("command_parser hello_2 --parameter 'Parameter'").output
   end
 
+  should "force mandatory parameters" do
+    assert_raises(Lucy::RequestError){ TestApp.run("parameter_parser1 search") }
+  end
+
 end

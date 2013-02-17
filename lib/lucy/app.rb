@@ -5,7 +5,9 @@ module Lucy
       task = commands.shift
       controller = [task.split("_").map{|i| i.capitalize}.join, "Controller"].join
 
-      @inst = Object.const_get(controller.to_sym).send(:new, commands)
+      klass = Object.const_get(controller.to_sym)
+      @inst = klass.send(:new, commands)
+      klass.apply_validators
       @inst.send(commands.shift.to_sym)
       self
     end
