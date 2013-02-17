@@ -1,4 +1,4 @@
-require_relative "../test_helper.rb"
+require "test_helper.rb"
 require "helpers/test_app"
 require "fixtures/command_parser_fixtures"
 
