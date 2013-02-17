@@ -8,7 +8,7 @@ module Lucy
         end
 
         def apply(params)
-          fail RequestError if !params[:"#{@argname}"]
+          fail RequestError unless params[:"#{@argname.gsub(/^-*/, '')}"]
         end
       end
 

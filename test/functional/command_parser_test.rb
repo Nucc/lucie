@@ -13,11 +13,11 @@ class CommandProcessorTest < MiniTest::Spec
   end
 
   should "force mandatory parameters" do
-    #assert_raises(Lucy::RequestError){ TestApp.run("parameter_parser1 search") }
+    assert_raises(Lucy::RequestError){ TestApp.run("parameter_parser1 search") }
   end
 
   should "not give error when mandatory parameters are present" do
-    #assert_equal "Ok", TestApp.run("parameter_parser1 search -s")
+    assert_equal "Ok", TestApp.run("parameter_parser1 search -s").output
   end
 
 end
