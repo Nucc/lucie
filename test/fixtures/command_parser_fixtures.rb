@@ -12,6 +12,7 @@ class ParameterParser1Controller < Lucy::Controller::Base
   mandatory "-s", "Search expression"
 
   def search
+    out << "Ok"
   end
 
 end

@@ -2,12 +2,16 @@ class CommandLineParser
 
   attr_reader :options
 
-  def initialize(plain_parameter_string)
-    @params_str = plain_parameter_string.to_s
+  def initialize(parameters)
+    @params_str = parameters.class == Array ? parameters.join(" ") : parameters
     @options = {}
     @latest_option = nil
 
     parse_options()
+  end
+
+  def [](name)
+    @options[name]
   end
 
 private

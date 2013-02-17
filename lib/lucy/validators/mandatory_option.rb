@@ -4,10 +4,11 @@ module Lucy
 
       class Validator
         def initialize(args)
+          @argname = args.shift
         end
 
-        def apply
-          fail RequestError
+        def apply(params)
+          fail RequestError if !params[:"#{@argname}"]
         end
       end
 

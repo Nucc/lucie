@@ -1,12 +1,16 @@
+require 'pp'
+
 module Lucy
   module Controller
     class Base
 
       class << self
         @validators = []
+        @params = CommandLineParser.new("")
       end
 
       def initialize(params)
+        self.class.params = CommandLineParser.new(params)
       end
 
       def out
@@ -14,8 +18,16 @@ module Lucy
         @buffer
       end
 
+      def self.params=(params)
+        @params = params
+      end
+
       def params
-        {:parameter => "Parameter"}
+        self.class.params
+      end
+
+      def self.params
+        @params
       end
 
       def self.validators
@@ -24,7 +36,7 @@ module Lucy
       end
 
       def self.apply_validators
-        validators.each {|validator| validator.apply } if validators
+        validators.each {|validator| validator.apply(params) } if validators
       end
 
       include Validators::MandatoryOption

@@ -42,6 +42,7 @@ class CommandLineParserTest < MiniTest::Spec
   should "parse arguments" do
     parser = CommandLineParser.new "arg1 arg2 -x -y"
     assert_equal "arg1", parser.options[:args][0]
+    assert parser.options[:x]
   end
 
 end
