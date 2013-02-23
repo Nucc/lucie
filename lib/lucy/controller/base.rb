@@ -5,6 +5,7 @@ module Lucy
     class Base
 
       include Validators::MandatoryOption
+      include Validators::Optional
 
       class << self
         @validators = []
@@ -35,6 +36,17 @@ module Lucy
       def self.validators
         @validators ||= []
         @validators
+      end
+
+      def self.pair_parameters
+        validators.each do |validator|
+          short = validator.short_option
+          long  = validator.long_option
+
+          if short != "" && long != ""
+            params.pair(short, long)
+          end
+        end
       end
 
       def self.apply_validators

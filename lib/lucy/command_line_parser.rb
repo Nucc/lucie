@@ -14,6 +14,17 @@ class CommandLineParser
     @options[name]
   end
 
+  def pair(short, long)
+    short_p = remove_dashes(short).to_sym
+    long_p = remove_dashes(long).to_sym
+
+    if @options[short_p].class == String
+      @options[long_p] = @options[short_p]
+    else
+      @options[short_p] = @options[long_p]
+    end
+  end
+
 private
 
   def parse_options

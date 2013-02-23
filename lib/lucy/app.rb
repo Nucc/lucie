@@ -8,6 +8,7 @@ module Lucy
       klass = Object.const_get(controller.to_sym)
       @inst = klass.send(:new, commands)
       klass.apply_validators
+      klass.pair_parameters
       @inst.send(commands.shift.to_sym)
       self
     end

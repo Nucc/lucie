@@ -8,6 +8,8 @@ module Lucy
 
   module Validators
     autoload :MandatoryOption, "validators/mandatory_option"
+    autoload :Optional, "validators/optional"
+    autoload :Base, "validators/base"
   end
 
   autoload :App, "app"

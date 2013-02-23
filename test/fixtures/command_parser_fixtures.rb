@@ -26,5 +26,14 @@ class OptionalMandatoryController < Controller::Base
   end
 end
 
-class ParameterPairing < Controller::Base
+class ParameterPairingController < Controller::Base
+  optional "-e", "--expression", "Search expression"
+
+  def search_short
+    out << params[:expression]
+  end
+
+  def search_long
+    out << params[:e]
+  end
 end

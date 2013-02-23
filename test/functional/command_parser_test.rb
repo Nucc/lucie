@@ -26,4 +26,9 @@ class CommandProcessorTest < MiniTest::Spec
     assert_equal "Ok", TestApp.run("optional_mandatory no_mandatory").output
   end
 
+  should "be able to pair parameters" do
+    assert_equal "some_string", TestApp.run("parameter_pairing search_short -e some_string").output
+    assert_equal "some_string", TestApp.run("parameter_pairing search_long --expression some_string").output
+  end
+
 end
