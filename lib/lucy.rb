@@ -14,3 +14,5 @@ module Lucy
   autoload :Buffer, "buffer"
   autoload :CommandLineParser, "command_line_parser"
 end
+
+include Lucy

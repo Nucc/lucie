@@ -20,4 +20,10 @@ class CommandProcessorTest < MiniTest::Spec
     assert_equal "Ok", TestApp.run("parameter_parser1 search -s").output
   end
 
+  should "give error, when method has mandatory parameter but another shouldn't throw in this case" do
+    assert_equal "Ok", TestApp.run("optional_mandatory search -s").output
+    assert_raises(Lucy::RequestError){ TestApp.run("optional_mandatory search") }
+    assert_equal "Ok", TestApp.run("optional_mandatory no_mandatory").output
+  end
+
 end

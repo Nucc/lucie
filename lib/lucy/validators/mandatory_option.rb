@@ -12,6 +12,11 @@ module Lucy
         end
       end
 
+      def mandatory(*args)
+        v = Validator.new(args)
+        v.apply(params)
+      end
+
       def self.included(base)
         base.extend(ClassMethods)
       end

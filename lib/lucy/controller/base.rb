@@ -4,6 +4,8 @@ module Lucy
   module Controller
     class Base
 
+      include Validators::MandatoryOption
+
       class << self
         @validators = []
         @params = CommandLineParser.new("")
@@ -38,8 +40,6 @@ module Lucy
       def self.apply_validators
         validators.each {|validator| validator.apply(params) } if validators
       end
-
-      include Validators::MandatoryOption
 
     end
   end

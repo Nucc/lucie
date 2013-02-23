@@ -1,4 +1,4 @@
-class CommandParserController < Lucy::Controller::Base
+class CommandParserController < Controller::Base
   def hello
     out << "Hello World"
   end
@@ -8,11 +8,23 @@ class CommandParserController < Lucy::Controller::Base
   end
 end
 
-class ParameterParser1Controller < Lucy::Controller::Base
+class ParameterParser1Controller < Controller::Base
   mandatory "-s", "Search expression"
-
   def search
     out << "Ok"
   end
+end
 
+class OptionalMandatoryController < Controller::Base
+  def search
+    mandatory "-s", "Search expression"
+    out << "Ok"
+  end
+
+  def no_mandatory
+    out << "Ok"
+  end
+end
+
+class ParameterPairing < Controller::Base
 end
