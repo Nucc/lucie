@@ -14,7 +14,7 @@ The `HostController`'s create action will handle the request, gets the parameter
 
 <pre>
 # /app/controllers/host_controller.rb:
-class HostController < Controller::Base
+class HostController &lt; Controller::Base
   mandatory "-d", "--domain", "Domain name of the host"
 
   def create
@@ -37,7 +37,7 @@ The host model is and XML configurations, which looks like this:
 
 <pre>
 # /app/models/host.rb
-class Host < XmlModel
+class Host &lt; XmlModel
   root :configuration
 
   Element :domain do
@@ -49,11 +49,11 @@ end
 The root of `Host` is `:configuration`, so it will be under the `<configuration>` node. Domain is an xml element, server is its attribute, so the result will be this:
 
 <pre>
-<configuration>
-  <hosts>
-    <domain server='web1'>lucy.ie</domain
-  </hosts>
-</configuration>
+&lt;configuration&gt;
+  &lt;hosts&gt;
+    &lt;domain server='web1'>lucy.ie&lt;/domain&gt;
+  &lt;/hosts&gt;
+&lt;/configuration&gt;
 </pre>
 
 The template defines an Nginx configuration. `HostController#create` use applies this template and place the result on `@server` to `/etc/nginx/vhosts/lucy.ie`.
@@ -62,10 +62,10 @@ The template defines an Nginx configuration. `HostController#create` use applies
 # /app/templates/nginx/vhost:
 server {
   listen          80;
-  server_name     <%= @domain %>;
+  server_name     &lt;%= @domain %&gt;
 
   location / {
-    root /var/www/<%= @domain %>
+    root /var/www/&lt;%= @domain %&gt;
   }
 }
 </pre>
