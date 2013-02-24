@@ -1,12 +1,12 @@
 # Lucy
 
-The plan of this project the create a framework for console applications. It would be a bit different to Thor, Rake, Getopt based command line frameworks, because it would based on MVC design pattern, where appears the controller layer to handle the command, the view to define templates for configuration files and the model to store data in XML or NoSQL database.
+The plan of this project is to create a framework for console applications. It would be a bit different to Thor, Rake, Getopt based command line frameworks, because it would based on MVC design pattern, where appears the controller layer to handle the command, the view to define templates for configuration files and the model to store data in XML or NoSQL database.
 
 Currently it's under hard developing.
 
-Here is an example:
+Here is an example of dataflow:
 
-We have an application to manage nginx configuration. We want to add a new host. The name of the application is WorkSpace, so we use the ws shortened name for the command.
+We have an application to manage nginx webserver configuration. We want to create a new host in the next process. The name of the application is WorkSpace, so we use the ws shortened name for the command.
 
 `$ ws host create --domain lucy.ie --server web1`
 
@@ -31,9 +31,9 @@ class HostController &lt; Controller::Base
 end
 </pre>
 
-Controller stores the new domain and its base host in Host model and after it using `nginx/vhost` template generates a new configuration file on `@server` at `/etc/nginx/vhosts/#{domain}` and reloads nginx.
+Controller stores the new domain and its base host in Host model. It uses the `nginx/vhost` template to generate a new configuration file on `@server` at `/etc/nginx/vhosts/#{domain}`. After configuration is generated it reloads nginx.
 
-The host model is and XML configurations, which looks like this:
+The host model is an XML configuration that looks like this:
 
 <pre>
 # /app/models/host.rb
@@ -56,7 +56,7 @@ The root of `Host` is `:configuration`, so it will be under the `<configuration>
 &lt;/configuration&gt;
 </pre>
 
-The template defines an Nginx configuration. `HostController#create` use applies this template and place the result on `@server` to `/etc/nginx/vhosts/lucy.ie`.
+The template defines an Nginx configuration. `HostController#create` applies this template and render its content on `@server` to `/etc/nginx/vhosts/lucy.ie`.
 
 <pre>
 # /app/templates/nginx/vhost:
