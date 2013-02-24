@@ -1,5 +1,3 @@
-require 'pp'
-
 module Lucy
   module Controller
     class Base

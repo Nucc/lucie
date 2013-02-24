@@ -9,11 +9,10 @@ class TemplateSnippetTest < MiniTest::Spec
     remove_file(@tmp_filename) # if it exists
   end
 
-  after do
-    remove_file(@tmp_filename)
-  end
+  after do remove_file(@tmp_filename); end
 
-#  describe "create_file" do
+
+  describe "create_file" do
 
     should "be able to create an empty file" do
       create_file @tmp_filename
@@ -46,16 +45,18 @@ class TemplateSnippetTest < MiniTest::Spec
       assert_equal "line_1", lines[0]
       assert_equal "line_2", lines[1]
     end
-  #end
+  end
 
-  #context "template" do
-    #before do @template_file = template_path; end
-    #after  do remove_file(@template_file) end
+  context "template" do
+    before do @template_file = template_path; end
+    after  do remove_file(@template_file) end
 
-    #should "generate file from template"
-  #end
+    should "generate file from template"
+  end
 
-    def template_dir
+  private
+
+  def template_dir
     File.expand_path("../../../tmp", __FILE__)
   end
 
