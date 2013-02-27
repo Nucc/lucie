@@ -1,4 +1,5 @@
 require "test_helper"
+require "tempfile"
 
 class TemplateSnippetTest < MiniTest::Spec
 
@@ -48,10 +49,17 @@ class TemplateSnippetTest < MiniTest::Spec
   end
 
   context "template" do
-    before do @template_file = template_path; end
-    after  do remove_file(@template_file) end
+    before do @template_file = Tempfile.new(template_file_name, template_dir); end
 
-    should "generate file from template"
+    should "generate file from template using absolute directory" do
+      File.open(@template_file, "w+") do |f|
+        f.write "template <%= @variable %>"
+      end
+      @variable = "test_var_for_template"
+
+      template @template_file, @tmp_filename
+      assert_equal "template test_var_for_template", File.open(@tmp_filename, "r").read
+    end
   end
 
   private

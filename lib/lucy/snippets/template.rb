@@ -1,3 +1,5 @@
+require 'erb'
+
 module Lucy
   module Snippets
     module Template
@@ -13,6 +15,12 @@ module Lucy
           end
         else
           File.new(file_path, "a")
+        end
+      end
+
+      def template(template, target)
+        create_file(target) do |f|
+          f.write ERB.new(File.read(template)).result(binding)
         end
       end
     end
