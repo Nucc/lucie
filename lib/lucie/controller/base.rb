@@ -1,4 +1,4 @@
-module Lucy
+module Lucie
   module Controller
     class Base
 

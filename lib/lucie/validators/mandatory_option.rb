@@ -1,10 +1,16 @@
-module Lucy
+module Lucie
   module Validators
-    module Optional
+    module MandatoryOption
 
       class Validator < Base
         def apply(params)
+          fail RequestError unless params[:"#{short_option.gsub(/^-*/, '')}"]
         end
+      end
+
+      def mandatory(*args)
+        v = Validator.new(args)
+        v.apply(params)
       end
 
       def self.included(base)
@@ -12,7 +18,7 @@ module Lucy
       end
 
       module ClassMethods
-        def optional(*args)
+        def mandatory(*args)
           self.validators << Validator.new(args)
         end
       end

@@ -1,4 +1,4 @@
-module Lucy
+module Lucie
   class Buffer
 
     attr_reader :output

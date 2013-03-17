@@ -1,4 +1,4 @@
-module Lucy
+module Lucie
   class RequestError < StandardError
   end
 end

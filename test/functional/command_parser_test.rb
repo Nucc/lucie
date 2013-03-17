@@ -13,7 +13,7 @@ class CommandProcessorTest < MiniTest::Spec
   end
 
   should "force mandatory parameters" do
-    assert_raises(Lucy::RequestError){ TestApp.run("parameter_parser1 search") }
+    assert_raises(Lucie::RequestError){ TestApp.run("parameter_parser1 search") }
   end
 
   should "not give error when mandatory parameters are present" do
@@ -22,7 +22,7 @@ class CommandProcessorTest < MiniTest::Spec
 
   should "give error, when method has mandatory parameter but another shouldn't throw in this case" do
     assert_equal "Ok", TestApp.run("optional_mandatory search -s").output
-    assert_raises(Lucy::RequestError){ TestApp.run("optional_mandatory search") }
+    assert_raises(Lucie::RequestError){ TestApp.run("optional_mandatory search") }
     assert_equal "Ok", TestApp.run("optional_mandatory no_mandatory").output
   end
 

@@ -1,7 +1,7 @@
-require "lucy/version"
-require "lucy/exceptions"
+require "lucie/version"
+require "lucie/exceptions"
 
-module Lucy
+module Lucie
   module Controller
     autoload :Base, "controller/base"
   end
@@ -21,6 +21,6 @@ module Lucy
   autoload :CommandLineParser, "command_line_parser"
 end
 
-include Lucy
+include Lucie
 
 APP_ROOT ||= File.expand_path("../..", __FILE__)

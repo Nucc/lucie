@@ -1,6 +1,6 @@
 require 'erb'
 
-module Lucy
+module Lucie
   module Snippets
     module Template
       def create_file(file_path, &block)

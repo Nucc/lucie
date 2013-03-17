@@ -1,11 +1,11 @@
 # -*- encoding: utf-8 -*-
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'lucy/version'
+require 'lucie/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = "lucy"
-  gem.version       = Lucy::VERSION
+  gem.name          = "lucie"
+  gem.version       = Lucie::VERSION
   gem.authors       = ["Nucc"]
   gem.email         = ["nucc@bteam.hu"]
   gem.description   = %q{Command line utility framework}

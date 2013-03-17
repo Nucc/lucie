@@ -1,2 +1,2 @@
-class TestApp < Lucy::App
+class TestApp < Lucie::App
 end

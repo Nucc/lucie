@@ -1,5 +1,9 @@
-module Lucy
+module Lucie
   class App
+    def self.init(file = nil)
+      File.expand_path("..", File.dirname(Kernel.caller.first))
+    end
+
     def self.run(command)
       commands = command.split(" ")
       task = commands.shift
@@ -16,5 +20,9 @@ module Lucy
     def self.output
       @inst.out.output
     end
+
+    def self.config
+    end
+
   end
 end

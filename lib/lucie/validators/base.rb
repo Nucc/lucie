@@ -1,4 +1,4 @@
-module Lucy
+module Lucie
   module Validators
     class Base
       def initialize(*args)
