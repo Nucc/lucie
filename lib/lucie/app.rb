@@ -8,7 +8,7 @@ module Lucie
     end
 
     def initialize(command, root)
-      self.root = root || File.expand_path("..", File.dirname(Kernel.caller.first))
+      self.root = root || File.expand_path("..", File.dirname(Kernel.caller[2]))
       self.command = command
 
       controller.class.apply_validators
