@@ -1,27 +1,59 @@
 module Lucie
   class App
-    def self.init(file = nil)
-      File.expand_path("..", File.dirname(Kernel.caller.first))
+
+    attr_reader :command
+
+    def self.run(command = ARGV, root = nil)
+      self.new(command, root)
     end
 
-    def self.run(command)
-      commands = command.split(" ")
-      task = commands.shift
-      controller = [task.split("_").map{|i| i.capitalize}.join, "Controller"].join
+    def initialize(command, root)
+      self.root = root || File.expand_path("..", File.dirname(Kernel.caller.first))
+      self.command = command
 
-      klass = Object.const_get(controller.to_sym)
-      @inst = klass.send(:new, commands)
-      klass.apply_validators
-      klass.pair_parameters
-      @inst.send(commands.shift.to_sym)
+      controller.class.apply_validators
+      controller.class.pair_parameters
+      controller.send(action)
       self
     end
 
-    def self.output
-      @inst.out.output
+    def root
+      @root
     end
 
-    def self.config
+    def output
+      controller.out.output
+    end
+
+private
+
+    def command=(value)
+      @command ||= value
+      @command = @command.split(" ") if @command.is_a? String
+    end
+
+    def task
+      @task ||= @command.shift
+    end
+
+    def action
+      @action ||= @command.shift.to_sym
+    end
+
+    def controller
+      @controller ||= controller_class.send(:new, command)
+    end
+
+    def controller_class
+      @controller_class ||= [task.split("_").map{|i| i.capitalize}.join, "Controller"].join
+      Object.const_get(@controller_class.to_sym)
+    rescue NameError
+      require [root, "app/controllers", "#{task}_controller"].join("/")
+      Object.const_get(@controller_class.to_sym)
+    end
+
+    def root=(value)
+      @root = value
     end
 
   end

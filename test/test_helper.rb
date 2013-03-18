@@ -6,7 +6,6 @@ require "mini_shoulda"
 require File.expand_path('../../lib/lucie.rb', __FILE__)
 
 LUCIE_ROOT = File.expand_path File.dirname(__FILE__)
-App.init()
 
 class MiniTest::Spec
   include Lucie

@@ -3,24 +3,23 @@ require "lucie/exceptions"
 
 module Lucie
   module Controller
-    autoload :Base, "controller/base"
+    autoload :Base, "lucie/controller/base"
   end
 
   module Validators
-    autoload :MandatoryOption, "validators/mandatory_option"
-    autoload :Optional, "validators/optional"
-    autoload :Base, "validators/base"
+    autoload :MandatoryOption, "lucie/validators/mandatory_option"
+    autoload :Optional, "lucie/validators/optional"
+    autoload :Base, "lucie/validators/base"
   end
 
   module Snippets
-    autoload :Template, "snippets/template"
+    autoload :Template, "lucie/snippets/template"
   end
 
-  autoload :App, "app"
-  autoload :Buffer, "buffer"
-  autoload :CommandLineParser, "command_line_parser"
+  autoload :App, "lucie/app"
+  autoload :Buffer, "lucie/buffer"
+  autoload :CommandLineParser, "lucie/command_line_parser"
 end
 
 include Lucie
 
-APP_ROOT ||= File.expand_path("../..", __FILE__)
