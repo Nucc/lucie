@@ -1,5 +1,8 @@
 module Lucie
   class RequestError < StandardError
+    def initialize(validator)
+      super "#{validator.description} (#{validator.short_option}) is mandatory parameter"
+    end
   end
 
   class ControllerNotFound < StandardError

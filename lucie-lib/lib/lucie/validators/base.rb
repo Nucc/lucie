@@ -16,6 +16,10 @@ module Lucie
       def long_option
         @argname.select{|option| option[0] == "-" && option[1] == "-"}.join.strip
       end
+
+      def description
+        @argname.select{|option| option[0] != "-" }.first
+      end
     end
   end
 end

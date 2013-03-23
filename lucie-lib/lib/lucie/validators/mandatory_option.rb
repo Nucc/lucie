@@ -4,7 +4,7 @@ module Lucie
 
       class Validator < Base
         def apply(params)
-          fail RequestError unless params[:"#{short_option.gsub(/^-*/, '')}"]
+          fail RequestError.new(self) unless params[:"#{short_option.gsub(/^-*/, '')}"]
         end
       end
 

@@ -51,4 +51,11 @@ class CommandProcessorTest < MiniTest::Spec
     end
   end
 
+  should "write user friendly message when mandatory parmaeter is missing" do
+    assert_output "", "Search expression (-s) is mandatory parameter" do
+      TestApp.run "parameter_parser1 search"
+    end
+  end
+
+
 end

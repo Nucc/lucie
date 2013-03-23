@@ -11,9 +11,8 @@ module Lucie
       self.root = root || File.expand_path("..", File.dirname(Kernel.caller[2]))
       self.command = command
 
-      controller.class.apply_validators
-      controller.class.pair_parameters
-
+      apply_validators
+      pair_parameters
       call_action_on_controller
 
       self
@@ -73,6 +72,14 @@ private
       controller.send(action)
     rescue NameError
       raise ActionNotFound.new(action, task)
+    end
+
+    def apply_validators
+      controller.class.apply_validators
+    end
+
+    def pair_parameters
+      controller.class.pair_parameters
     end
 
     def root=(value)
