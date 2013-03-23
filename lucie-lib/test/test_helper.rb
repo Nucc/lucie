@@ -9,4 +9,21 @@ LUCIE_ROOT = File.expand_path File.dirname(__FILE__)
 
 class MiniTest::Spec
   include Lucie
+
+  def setup
+    redirect_stderr
+  end
+
+  def teardown
+    reset_stderr_redirection
+  end
+
+  def redirect_stderr
+    @stderr = $stderr
+    $stderr = StringIO.new
+  end
+
+  def reset_stderr_redirection
+    $stderr = @stderr
+  end
 end

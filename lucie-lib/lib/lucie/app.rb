@@ -15,6 +15,10 @@ module Lucie
       controller.class.pair_parameters
       controller.send(action)
       self
+    rescue => e
+      self.exception = e
+      give_information_about_exception
+      write_exception_to_stderr
     end
 
     def root
@@ -23,6 +27,11 @@ module Lucie
 
     def output
       controller.out.output
+    end
+
+    class << self
+      attr_accessor :raise_exception
+      raise_exception = false
     end
 
 private
@@ -48,12 +57,31 @@ private
       @controller_class ||= [task.split("_").map{|i| i.capitalize}.join, "Controller"].join
       Object.const_get(@controller_class.to_sym)
     rescue NameError
-      require [root, "app/controllers", "#{task}_controller"].join("/")
+      include_controller_for(task)
       Object.const_get(@controller_class.to_sym)
+    end
+
+    def include_controller_for(task)
+      require [root, "app/controllers", "#{task}_controller"].join("/")
+    rescue LoadError => e
+      raise ControllerNotFound, task
     end
 
     def root=(value)
       @root = value
+    end
+
+    def exception=(exception)
+      @exception = exception
+    end
+
+    def give_information_about_exception
+      $stderr << @exception.to_s.strip
+    end
+
+    def write_exception_to_stderr
+      raise @exception if self.class.raise_exception
+      #$stderr << @exception.to_s.strip
     end
 
   end
