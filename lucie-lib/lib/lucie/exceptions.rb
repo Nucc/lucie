@@ -7,4 +7,11 @@ module Lucie
       super "Controller is not found for #{controller_name}."
     end
   end
+
+  class ActionNotFound < StandardError
+    def initialize(action, controller)
+      super "#{action} is not found in #{controller}."
+    end
+  end
+
 end

@@ -13,7 +13,9 @@ module Lucie
 
       controller.class.apply_validators
       controller.class.pair_parameters
-      controller.send(action)
+
+      call_action_on_controller
+
       self
     rescue => e
       self.exception = e
@@ -67,6 +69,12 @@ private
       raise ControllerNotFound, task
     end
 
+    def call_action_on_controller
+      controller.send(action)
+    rescue NameError
+      raise ActionNotFound.new(action, task)
+    end
+
     def root=(value)
       @root = value
     end
@@ -80,8 +88,7 @@ private
     end
 
     def write_exception_to_stderr
-      raise @exception if self.class.raise_exception
-      #$stderr << @exception.to_s.strip
+      raise @exception if @exception && self.class.raise_exception
     end
 
   end

@@ -45,4 +45,10 @@ class CommandProcessorTest < MiniTest::Spec
     end
   end
 
+  should "write to stderr that no action found when action is missing" do
+    assert_output "", "no_action is not found in optional_mandatory." do
+      TestApp.run("optional_mandatory no_action")
+    end
+  end
+
 end
