@@ -57,5 +57,9 @@ class CommandProcessorTest < MiniTest::Spec
     end
   end
 
-
+  should "write help message for help command" do
+    assert_output "Help", "" do
+      TestApp.run "parameter_parser1 help"
+    end
+  end
 end

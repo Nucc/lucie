@@ -51,6 +51,10 @@ module Lucie
         validators.each {|validator| validator.apply(params) } if validators
       end
 
+      def help
+        "Help"
+      end
+
     end
   end
 end

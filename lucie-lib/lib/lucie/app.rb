@@ -11,9 +11,13 @@ module Lucie
       self.root = root || File.expand_path("..", File.dirname(Kernel.caller[2]))
       self.command = command
 
-      apply_validators
-      pair_parameters
-      call_action_on_controller
+      unless help?
+        apply_validators
+        pair_parameters
+        call_action_on_controller
+      else
+        call_help
+      end
 
       self
     rescue => e
@@ -40,6 +44,12 @@ private
     def command=(value)
       @command ||= value
       @command = @command.split(" ") if @command.is_a? String
+    end
+
+    def help?
+      @command.select{ |command| command == "-h" || command == "--help" || command == "help"}.length > 0 ||
+      task == "help" ||
+      controller == "help"
     end
 
     def task
@@ -96,6 +106,10 @@ private
 
     def write_exception_to_stderr
       raise @exception if @exception && self.class.raise_exception
+    end
+
+    def call_help
+      $stdout << controller.help
     end
 
   end
