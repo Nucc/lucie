@@ -2,32 +2,21 @@ module Lucie
   class App
 
     attr_reader :command
+    attr_reader :root
 
     def self.run(command = ARGV, root = nil)
-      self.new(command, root)
+      obj = self.new(command, root)
+      obj.start
+      obj
     end
 
     def initialize(command, root)
       self.root = root || File.expand_path("..", File.dirname(Kernel.caller[2]))
       self.command = command
-
-      unless help?
-        apply_validators
-        pair_parameters
-        call_action_on_controller
-      else
-        call_help
-      end
-
-      self
-    rescue => e
-      self.exception = e
-      give_information_about_exception
-      write_exception_to_stderr
     end
 
-    def root
-      @root
+    def start
+      help? ? call_help : call_method_invoking_process
     end
 
     def output
@@ -36,10 +25,23 @@ module Lucie
 
     class << self
       attr_accessor :raise_exception
+      attr_accessor :log_level
       raise_exception = false
+      log_level = :info
     end
 
 private
+
+    def call_method_invoking_process
+      apply_validators
+      pair_parameters
+      call_action_on_controller
+    rescue => e
+      self.exception = e
+      give_user_friendly_error_message
+      write_backtrace
+      raise if self.class.raise_exception
+    end
 
     def command=(value)
       @command ||= value
@@ -48,8 +50,7 @@ private
 
     def help?
       @command.select{ |command| command == "-h" || command == "--help" || command == "help"}.length > 0 ||
-      task == "help" ||
-      controller == "help"
+      task == "help"
     end
 
     def task
@@ -100,12 +101,12 @@ private
       @exception = exception
     end
 
-    def give_information_about_exception
+    def give_user_friendly_error_message
       $stderr << @exception.to_s.strip
     end
 
-    def write_exception_to_stderr
-      raise @exception if @exception && self.class.raise_exception
+    def write_backtrace
+      $stderr.puts Kernel.caller.join("\n") if App.log_level == :debug
     end
 
     def call_help
