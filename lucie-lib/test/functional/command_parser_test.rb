@@ -6,16 +6,16 @@ require "fixtures/command_parser_fixtures"
 class CommandProcessorTest < MiniTest::Spec
 
   should "parse commands" do
-    assert_equal "Hello World", TestApp.run("command_parser hello").output
+    assert_output("Hello World", nil) { TestApp.run("command_parser hello") }
   end
 
   should "parse long parameter" do
-    assert_equal "Parameter", TestApp.run("command_parser hello_2 --parameter Parameter").output
+    assert_output("Parameter", nil) { TestApp.run("command_parser hello_2 --parameter Parameter") }
   end
 
 
   should "not give error when mandatory parameters are present" do
-    assert_equal "Ok", TestApp.run("parameter_parser1 search -s").output
+    assert_output("Ok", nil) { TestApp.run("parameter_parser1 search -s") }
   end
 
   context "raise exception" do
@@ -28,15 +28,15 @@ class CommandProcessorTest < MiniTest::Spec
     end
 
     should "give error, when method has mandatory parameter but another shouldn't throw in this case" do
-      assert_equal "Ok", TestApp.run("optional_mandatory search -s").output
+      assert_output("Ok", nil) { TestApp.run("optional_mandatory search -s") }
       assert_raises(Lucie::RequestError){ TestApp.run("optional_mandatory search") }
-      assert_equal "Ok", TestApp.run("optional_mandatory no_mandatory").output
+      assert_output("Ok", nil) { TestApp.run("optional_mandatory no_mandatory") }
     end
   end
 
   should "be able to pair parameters" do
-    assert_equal "some_string", TestApp.run("parameter_pairing search_short -e some_string").output
-    assert_equal "some_string", TestApp.run("parameter_pairing search_long --expression some_string").output
+    assert_output("some_string", nil) { TestApp.run("parameter_pairing search_short -e some_string") }
+    assert_output("some_string", nil) { TestApp.run("parameter_pairing search_long --expression some_string") }
   end
 
   should "write to stderr that no controller found when controller is missing" do

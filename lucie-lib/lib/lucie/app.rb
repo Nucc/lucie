@@ -19,10 +19,6 @@ module Lucie
       help? ? call_help : call_method_invoking_process
     end
 
-    def output
-      controller.out.output
-    end
-
     class << self
       attr_accessor :raise_exception
       attr_accessor :log_level

@@ -17,7 +17,6 @@ module Lucie
   end
 
   autoload :App, "lucie/app"
-  autoload :Buffer, "lucie/buffer"
   autoload :CommandLineParser, "lucie/command_line_parser"
 end
 

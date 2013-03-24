@@ -14,11 +14,6 @@ module Lucie
         self.class.params = CommandLineParser.new(params)
       end
 
-      def out
-        @buffer ||= Buffer.new
-        @buffer
-      end
-
       def self.params=(params)
         @params = params
       end
