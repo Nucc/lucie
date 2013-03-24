@@ -4,6 +4,7 @@ require "lucie/exceptions"
 module Lucie
   module Controller
     autoload :Base, "lucie/controller/base"
+    autoload :ExitRequest, "lucie/controller/exit_request"
   end
 
   module Validators

@@ -62,4 +62,16 @@ class CommandProcessorTest < MiniTest::Spec
       TestApp.run "parameter_parser1 help"
     end
   end
+
+  should "return the exit value" do
+    assert_equal 1, TestApp.run("exit_value method1")
+  end
+
+  should "return 0 if exit value is missing" do
+    assert_equal 0, TestApp.run("exit_value no_exit")
+  end
+
+  should "return 255 when controller or action is missing" do
+    assert_equal 255, TestApp.run("no_controller_with_this_name")
+  end
 end

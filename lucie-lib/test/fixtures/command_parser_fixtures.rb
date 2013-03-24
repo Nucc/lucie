@@ -37,3 +37,13 @@ class ParameterPairingController < Controller::Base
     print params[:e]
   end
 end
+
+class ExitValueController < Controller::Base
+  def method1
+    exit 1
+  end
+
+  def no_exit
+    "asdf"
+  end
+end

@@ -46,6 +46,10 @@ module Lucie
         validators.each {|validator| validator.apply(params) } if validators
       end
 
+      def exit(value)
+        raise ExitRequest, value
+      end
+
       def help
         "Help"
       end

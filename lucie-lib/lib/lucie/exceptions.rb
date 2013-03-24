@@ -17,4 +17,11 @@ module Lucie
     end
   end
 
+  class ExitRequest < Exception
+    attr_reader :exit
+    def initialize(exit)
+      @exit = exit
+    end
+  end
+
 end

@@ -7,7 +7,7 @@ module Lucie
     def self.run(command = ARGV, root = nil)
       obj = self.new(command, root)
       obj.start
-      obj
+      obj.exit_value
     end
 
     def initialize(command, root)
@@ -17,6 +17,10 @@ module Lucie
 
     def start
       help? ? call_help : call_method_invoking_process
+    end
+
+    def exit_value
+      @exit_value || 0
     end
 
     class << self
@@ -72,13 +76,17 @@ private
     def include_controller_for(task)
       require [root, "app/controllers", "#{task}_controller"].join("/")
     rescue LoadError => e
+      self.exit_value = 255
       raise ControllerNotFound, task
     end
 
     def call_action_on_controller
-      controller.send(action)
+      self.exit_value = controller.send(action)
     rescue NameError
+      self.exit_value = 255
       raise ActionNotFound.new(action, task)
+    rescue Controller::ExitRequest => exit_request
+      self.exit_value = exit_request.code
     end
 
     def apply_validators
@@ -109,5 +117,8 @@ private
       $stdout << controller.help
     end
 
+    def exit_value=(exit_value)
+      @exit_value = exit_value if exit_value.is_a?(Fixnum)
+    end
   end
 end
