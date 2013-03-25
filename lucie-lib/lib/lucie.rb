@@ -2,8 +2,8 @@ require "lucie/version"
 require "lucie/exceptions"
 
 module Lucie
+
   module Controller
-    autoload :Base, "lucie/controller/base"
     autoload :ExitRequest, "lucie/controller/exit_request"
   end
 
@@ -17,9 +17,12 @@ module Lucie
     autoload :Template, "lucie/snippets/template"
   end
 
-  autoload :App, "lucie/app"
   autoload :CommandLineParser, "lucie/command_line_parser"
 end
+
+
+require "lucie/app"
+require "lucie/controller/base"
 
 include Lucie
 
