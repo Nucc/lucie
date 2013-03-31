@@ -74,4 +74,10 @@ class CommandProcessorTest < MiniTest::Spec
   should "return 255 when controller or action is missing" do
     assert_equal 255, TestApp.run("no_controller_with_this_name")
   end
+
+  should "call index method when only the task present" do
+    assert_output "index_method", "" do
+      TestApp.run("call_index")
+    end
+  end
 end

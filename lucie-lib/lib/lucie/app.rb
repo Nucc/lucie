@@ -56,7 +56,8 @@ private
     end
 
     def action
-      @action ||= @command.shift.to_sym
+      @action ||= @command.shift
+      @action ? @action.to_sym : "index"
     end
 
     def controller
@@ -79,7 +80,7 @@ private
     end
 
     def call_action_on_controller
-      self.exit_value = controller.send(action)
+      self.exit_value = controller.send(action || "index")
     rescue NameError
       self.exit_value = 255
       raise ActionNotFound.new(action, task)

@@ -47,3 +47,9 @@ class ExitValueController < Controller::Base
     "asdf"
   end
 end
+
+class CallIndexController < Controller::Base
+  def index
+    print "index_method"
+  end
+end
