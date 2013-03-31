@@ -45,4 +45,11 @@ class CommandLineParserTest < MiniTest::Spec
     assert parser.options[:x]
   end
 
+  should "be able to shift the args array" do
+    parser = CommandLineParser.new "arg1 arg2"
+    arg = parser.shift
+    assert_equal "arg1", arg
+    assert_equal "arg2", parser.options[:args][0]
+  end
+
 end

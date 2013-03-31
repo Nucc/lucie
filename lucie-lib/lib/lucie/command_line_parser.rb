@@ -14,6 +14,10 @@ class CommandLineParser
     @options[name]
   end
 
+  def shift
+    @options[:args].shift
+  end
+
   def pair(short, long)
     short_p = remove_dashes(short).to_sym
     long_p = remove_dashes(long).to_sym
