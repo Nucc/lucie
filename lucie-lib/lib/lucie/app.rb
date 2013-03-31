@@ -13,6 +13,8 @@ module Lucie
     def initialize(command, root)
       self.root = root || File.expand_path("..", File.dirname(Kernel.caller[2]))
       self.command = command
+      @exit_value ||= 0
+      @task = nil
     end
 
     def start
@@ -20,14 +22,14 @@ module Lucie
     end
 
     def exit_value
-      @exit_value || 0
+      @exit_value
     end
 
     class << self
       attr_accessor :raise_exception
       attr_accessor :log_level
-      raise_exception = false
-      log_level = :info
+      @@raise_exception = false
+      @@log_level = :info
     end
 
 private
@@ -74,7 +76,7 @@ private
 
     def include_controller_for(task)
       require [root, "app/controllers", "#{task}_controller"].join("/")
-    rescue LoadError => e
+    rescue LoadError
       self.exit_value = 255
       raise ControllerNotFound, task
     end
