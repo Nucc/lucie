@@ -10,8 +10,8 @@ module Lucie
         @params = CommandLineParser.new("")
       end
 
-      def initialize(params)
-        self.class.params = CommandLineParser.new(params)
+      def initialize(command_line_parser)
+        self.class.params = command_line_parser
       end
 
       def self.params=(params)

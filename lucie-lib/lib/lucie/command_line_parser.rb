@@ -29,6 +29,14 @@ class CommandLineParser
     end
   end
 
+  def has_option?(option)
+    @options[remove_dashes(option).to_sym] || false
+  end
+
+  def has_arg?(option)
+    @options[:args].include?(option)
+  end
+
 private
 
   def parse_options
@@ -46,13 +54,13 @@ private
   end
 
   def remove_dashes(option)
-    option.gsub!(/^-+/, "")
+    option.gsub(/^-+/, "")
   end
 
   def save_option(option)
-    remove_dashes(option)
-    @options[option.to_sym] = true
-    @latest_option = option.to_sym
+    without_dashes = remove_dashes(option)
+    @options[without_dashes.to_sym] = true
+    @latest_option = without_dashes.to_sym
   end
 
   def save_parameter(option)

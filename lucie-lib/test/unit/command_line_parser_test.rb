@@ -52,4 +52,18 @@ class CommandLineParserTest < MiniTest::Spec
     assert_equal "arg2", parser.options[:args][0]
   end
 
+  should "be able to answer the an argument is present or not" do
+    parser = CommandLineParser.new "arg1 arg2"
+    assert parser.has_arg?("arg1")
+    assert parser.has_arg?("arg2")
+    assert !parser.has_arg?("arg3")
+  end
+
+  should "be able to answer the parameter is present or not" do
+    parser = CommandLineParser.new "arg1 -h -p"
+    assert parser.has_option?("h")
+    assert parser.has_option?("p")
+    assert !parser.has_option?("print")
+  end
+
 end

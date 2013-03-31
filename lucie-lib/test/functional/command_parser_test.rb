@@ -1,4 +1,4 @@
-require "test_helper.rb"
+require "test_helper"
 require "stringio"
 require "helpers/test_app"
 require "fixtures/command_parser_fixtures"

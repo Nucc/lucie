@@ -2,6 +2,7 @@
 # Force the Rubygems version
 require 'minitest/autorun'
 require "mini_shoulda"
+require 'debugger'
 
 require File.expand_path('../../lib/lucie.rb', __FILE__)
 

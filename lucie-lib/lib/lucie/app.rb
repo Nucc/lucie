@@ -44,13 +44,11 @@ private
     end
 
     def command=(value)
-      @command ||= value
-      @command = @command.split(" ") if @command.is_a? String
+      @command ||= CommandLineParser.new(value)
     end
 
     def help?
-      @command.select{ |command| command == "-h" || command == "--help" || command == "help"}.length > 0 ||
-      task == "help"
+      @command.has_option?("-h") || @command.has_option?("--help") || @command.has_arg?("help") || task == "help"
     end
 
     def task
