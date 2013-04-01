@@ -18,8 +18,8 @@ module Lucie
   end
 
   autoload :CommandLineParser, "lucie/command_line_parser"
-end
 
+end
 
 require "lucie/app"
 require "lucie/controller/base"

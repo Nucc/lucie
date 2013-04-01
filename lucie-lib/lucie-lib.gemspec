@@ -1,11 +1,12 @@
 # -*- encoding: utf-8 -*-
+version = File.read(File.expand_path('../../version', __FILE__)).strip
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'lucie/version'
 
 Gem::Specification.new do |gem|
   gem.name          = "lucie"
-  gem.version       = Lucie::VERSION
+  gem.version       = version
   gem.authors       = ["Nucc"]
   gem.email         = ["nucc@bteam.hu"]
   gem.description   = %q{Command line utility framework}
@@ -20,5 +21,4 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "rake"
   gem.add_development_dependency "minitest"
   gem.add_development_dependency "mini_shoulda"
-  gem.add_development_dependency "debugger"
 end
