@@ -1,8 +1,8 @@
-# Lucie
+# Lucie - Console Application Framework !["Build status"](https://api.travis-ci.org/Nucc/lucie.png)
 
-The plan of this project is to create a framework for console applications. It would be a bit different to Thor, Rake, Getopt based command line frameworks, because it would based on MVC design pattern, where appears the controller layer to handle the command, the view to define templates for configuration files and the model to store data in XML or NoSQL database.
+The goal of this project is to create a framework for console applications. It would be a bit different to Thor, Rake, Getopt based command line frameworks, because it would based on MVC design pattern, where appears the controller layer to handle the command, the view to define templates for configuration files and the model to store data in XML or NoSQL database.
 
-Currently it's under hard developing.
+Currently it's under developing.
 
 Here is an example of dataflow:
 
