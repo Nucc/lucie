@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 version = File.read(File.expand_path('../../version', __FILE__)).strip
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+#lib = File.expand_path('../lib', __FILE__)
+#$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |gem|
-  gem.name          = "lucie-lib"
+  gem.name          = "lucie-bin"
   gem.version       = version
   gem.authors       = ["Nucc"]
   gem.email         = ["nucc@bteam.hu"]
@@ -15,9 +15,7 @@ Gem::Specification.new do |gem|
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.require_paths = ["lib"]
 
-  gem.add_development_dependency "rake"
-  gem.add_development_dependency "minitest"
-  gem.add_development_dependency "mini_shoulda"
+  gem.add_dependency "lucie-lib", version
+
 end

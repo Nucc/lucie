@@ -1,9 +1,11 @@
-SUBPROJECTS = %w(lucie-lib)
+require "bundler/gem_tasks"
+
+SUBPROJECTS = %w(lucie-lib lucie-bin)
 
 desc 'Run all tests'
 task :default => %w(test)
 
-%w(test).each do |task|
+%w(test install).each do |task|
   desc "Run #{task} task for all projects"
   task task do
     errors = []
