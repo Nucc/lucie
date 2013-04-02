@@ -4,20 +4,29 @@ class CommandLineSlicer
   end
 
   def to_a
+    # need refactor
+
     neutral_chars = ["\\"]
     split_chars = [" "]
-    string_chars = ["\"", "'"]
+    quotation_chars = ["\"", "'"]
 
     neutral_status = false
-    string_open = false
+    quotation_open = false
 
     parts = []
     read = ""
     @line.each_char do |c|
-      if split_chars.include?(c)
+      if split_chars.include?(c) && !neutral_status && !quotation_open
         parts << read if read != ""
         read = ""
+      elsif quotation_chars.include?(c) && !neutral_status
+        quotation_open = !quotation_open
       else
+        neutral_status = false
+        if neutral_chars.include?(c)
+          neutral_status = true
+          next
+        end
         read += c
       end
     end

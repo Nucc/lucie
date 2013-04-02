@@ -66,4 +66,10 @@ class CommandLineParserTest < MiniTest::Spec
     assert !parser.has_option?("print")
   end
 
+  should "parse params enclosed with \" or ' as one arg" do
+    parser = CommandLineParser.new "arg1 'arg2 arg3'"
+    assert_equal "arg1", parser.args[0]
+    assert_equal "arg2 arg3", parser.args[1]
+  end
+
 end

@@ -15,6 +15,11 @@ class CommandLineSlicerTest < MiniTest::Unit::TestCase
   end
 
   def test_neutral_space
-    #assert_equal ["first second"], CommandLineSlicer.new("first\\ second").to_a
+    assert_equal ["first second"], CommandLineSlicer.new("first\\ second").to_a
+  end
+
+  def test_quotation_marks
+    assert_equal ["first", "second third"], CommandLineSlicer.new('first "second third"').to_a
+    assert_equal ["first", "second third"], CommandLineSlicer.new("first 'second third'").to_a
   end
 end
