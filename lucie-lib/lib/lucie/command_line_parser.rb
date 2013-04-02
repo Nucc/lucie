@@ -37,6 +37,10 @@ class CommandLineParser
     @options[:args].include?(option)
   end
 
+  def args
+    @options[:args].dup
+  end
+
 private
 
   def parse_options

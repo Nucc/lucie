@@ -80,4 +80,10 @@ class CommandProcessorTest < MiniTest::Spec
       TestApp.run("call_index")
     end
   end
+
+  should "call method_missing if task method is missing and leave the task in args" do
+    assert_output "no_method_with_this_name", "" do
+      TestApp.run("method_missing no_method_with_this_name")
+    end
+  end
 end

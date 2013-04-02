@@ -58,8 +58,8 @@ private
     end
 
     def action
-      @action ||= @command.shift
-      @action ? @action.to_sym : "index"
+      @action ||= @command.args.first
+      @action ? @action.to_sym : :index
     end
 
     def controller
@@ -82,7 +82,14 @@ private
     end
 
     def call_action_on_controller
-      self.exit_value = controller.send(action || "index")
+      method = action
+      if controller.respond_to? method
+        # pop the args[0] element because this is the method
+        @command.shift
+      else
+        method = :no_method
+      end
+      self.exit_value = controller.send(method)
     rescue NameError
       self.exit_value = 255
       raise ActionNotFound.new(action, task)

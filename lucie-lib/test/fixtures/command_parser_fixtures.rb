@@ -53,3 +53,12 @@ class CallIndexController < Controller::Base
     print "index_method"
   end
 end
+
+class MethodMissingController < Controller::Base
+  def index
+    print params[:args][0]
+  end
+
+  alias_method :no_method, :index
+
+end
