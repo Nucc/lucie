@@ -1,3 +1,5 @@
+require "lucie/command_line_slicer"
+
 class CommandLineParser
 
   attr_reader :options
@@ -79,6 +81,6 @@ private
   end
 
   def array_of_options
-    @params_str.strip.split
+    CommandLineSlicer.new(@params_str).to_a
   end
 end

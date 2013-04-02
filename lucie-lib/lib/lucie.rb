@@ -17,10 +17,9 @@ module Lucie
     autoload :Template, "lucie/snippets/template"
   end
 
-  autoload :CommandLineParser, "lucie/command_line_parser"
-
 end
 
+require "lucie/command_line_parser"
 require "lucie/app"
 require "lucie/controller/base"
 
