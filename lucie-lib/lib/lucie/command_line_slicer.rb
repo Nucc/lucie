@@ -1,36 +1,77 @@
 class CommandLineSlicer
   def initialize(line)
-    @line = line
+    @line = line.split("")
+    @parts = []
+    @neutral_status = false
+    @quotation_open = false
+    @scanned = ""
   end
 
   def to_a
-    # need refactor
-
-    neutral_chars = ["\\"]
-    split_chars = [" "]
-    quotation_chars = ["\"", "'"]
-
-    neutral_status = false
-    quotation_open = false
-
-    parts = []
-    read = ""
-    @line.each_char do |c|
-      if split_chars.include?(c) && !neutral_status && !quotation_open
-        parts << read if read != ""
-        read = ""
-      elsif quotation_chars.include?(c) && !neutral_status
-        quotation_open = !quotation_open
+    each_char do |char|
+      if boundary? char
+        save_chunk
+      elsif in_quoatation? char
+        toggle_quotation_state
+      elsif neutral? char
+        neutral :on
       else
-        neutral_status = false
-        if neutral_chars.include?(c)
-          neutral_status = true
-          next
-        end
-        read += c
+        neutral :off
+        append char
       end
     end
-    parts << read if read != ""
-    parts
+    save_chunk
+  end
+
+private
+
+  def append(char)
+    @scanned += char
+  end
+
+  def each_char(&blk)
+    while @line.size > 0
+      yield(@line.shift)
+    end
+  end
+
+  def toggle_quotation_state
+    @quotation_open = !@quotation_open
+  end
+
+  def save_chunk
+    @parts << @scanned if @scanned != ""
+    @scanned = ""
+    @parts
+  end
+
+  def neutral(sym)
+    @neutral_status = (sym == :on)
+  end
+
+private
+
+  def neutral_chars
+    ["\\"]
+  end
+
+  def boundary_chars
+    [" "]
+  end
+
+  def quotation_chars
+    ["\"", "'"]
+  end
+
+  def boundary?(char)
+    boundary_chars.include?(char) && !@neutral_status && !@quotation_open
+  end
+
+  def in_quoatation?(char)
+    quotation_chars.include?(char) && !@neutral_status
+  end
+
+  def neutral?(char)
+    neutral_chars.include?(char)
   end
 end
