@@ -18,6 +18,14 @@ class CommandLineSlicerTest < MiniTest::Unit::TestCase
     assert_equal ["first second"], CommandLineSlicer.new("first\\ second").to_a
   end
 
+  def test_neutral_element_on_another_neutral
+    assert_equal ["first\\", "second"], CommandLineSlicer.new("first\\\\ second").to_a
+  end
+
+  def test_neutral_element_on_another_neutral_between_quotation
+    assert_equal ["first\\ second"], CommandLineSlicer.new('"first\\\\ second"').to_a
+  end
+
   def test_quotation_marks
     assert_equal ["first", "second third"], CommandLineSlicer.new('first "second third"').to_a
     assert_equal ["first", "second third"], CommandLineSlicer.new("first 'second third'").to_a

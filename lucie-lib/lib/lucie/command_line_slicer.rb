@@ -72,6 +72,6 @@ private
   end
 
   def neutral?(char)
-    neutral_chars.include?(char)
+    neutral_chars.include?(char) && !@neutral_status
   end
 end
