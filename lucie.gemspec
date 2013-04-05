@@ -14,6 +14,6 @@ Gem::Specification.new do |gem|
 
   gem.files = ["README.md"]
 
-  #gem.add_dependency "lucie-lib", version
+  gem.add_dependency "lucie-lib", version
   gem.add_dependency "lucie-bin", version
 end
