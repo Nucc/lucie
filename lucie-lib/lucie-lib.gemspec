@@ -3,21 +3,21 @@ version = File.read(File.expand_path('../../version', __FILE__)).strip
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
-Gem::Specification.new do |gem|
-  gem.name          = "lucie-lib"
-  gem.version       = version
-  gem.authors       = ["Nucc"]
-  gem.email         = ["nucc@bteam.hu"]
-  gem.description   = %q{Command line utility framework}
-  gem.summary       = %q{}
-  gem.homepage      = ""
+Gem::Specification.new do |s|
+  s.name          = "lucie-lib"
+  s.version       = version
+  s.authors       = ["Nucc"]
+  s.email         = ["nucc@bteam.hu"]
+  s.description   = %q{Command line utility framework}
+  s.summary       = %q{}
+  s.homepage      = ""
 
-  gem.files         = `git ls-files`.split($/)
-  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.require_paths = ["lib"]
+  s.files         = `git ls-files`.split($/)
+  s.executables   = s.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  s.test_files    = s.files.grep(%r{^(test|spec|features)/})
+  s.require_paths = ["lib"]
 
-  gem.add_development_dependency "rake"
-  gem.add_development_dependency "minitest"
-  gem.add_development_dependency "mini_shoulda"
+  s.add_development_dependency "rake"
+  s.add_development_dependency "minitest"
+  s.add_development_dependency "mini_shoulda"
 end
