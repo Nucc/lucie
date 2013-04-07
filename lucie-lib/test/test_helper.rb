@@ -1,13 +1,14 @@
+require 'coveralls'
+Coveralls.wear!
+
 # MiniTest is integrated to Ruby library and by default the test wants to use that.
 # Force the Rubygems version
 require 'minitest/autorun'
 require "mini_shoulda"
-require 'coveralls'
 #require 'debugger'
 
 require File.expand_path('../../lib/lucie.rb', __FILE__)
 
-Coveralls.wear!
 
 LUCIE_ROOT = File.expand_path File.dirname(__FILE__)
 
