@@ -3,7 +3,7 @@ require "stringio"
 require "helpers/test_app"
 require "fixtures/command_parser_fixtures"
 
-class CommandProcessorTest < MiniTest::Spec
+describe App do
 
   should "parse commands" do
     assert_output("Hello World", nil) { TestApp.run("command_parser hello") }
@@ -12,7 +12,6 @@ class CommandProcessorTest < MiniTest::Spec
   should "parse long parameter" do
     assert_output("Parameter", nil) { TestApp.run("command_parser hello_2 --parameter Parameter") }
   end
-
 
   should "not give error when mandatory parameters are present" do
     assert_output("Ok", nil) { TestApp.run("parameter_parser1 search -s") }
