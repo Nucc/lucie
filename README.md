@@ -1,4 +1,4 @@
-# Lucie - Console Application Framework &nbsp; [![Code Climate](https://api.travis-ci.org/Nucc/lucie.png)](https://travis-ci.org/Nucc/lucie) [![Code Climate](https://codeclimate.com/github/Nucc/lucie.png)](https://codeclimate.com/github/Nucc/lucie)
+# Lucie - Console Application Framework &nbsp; [![Code Climate](https://api.travis-ci.org/Nucc/lucie.png)](https://travis-ci.org/Nucc/lucie) [![Code Climate](https://codeclimate.com/github/Nucc/lucie.png)](https://codeclimate.com/github/Nucc/lucie) [![Coverage Status](https://coveralls.io/repos/Nucc/lucie/badge.png?branch=master)](https://coveralls.io/r/Nucc/lucie)
 
 The goal of this project is to create a framework for console applications. It would be a bit different to Thor, Rake, Getopt based command line frameworks, because it would based on MVC design pattern, where appears the controller layer to handle the command, the view to define templates for configuration files and the model to store data in XML or NoSQL database.
 
