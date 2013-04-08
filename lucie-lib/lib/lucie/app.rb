@@ -1,17 +1,26 @@
 module Lucie
   class App
 
+    class << self
+      attr_accessor :raise_exception
+      attr_accessor :log_level
+      attr_accessor :root
+      @raise_exception = false
+      @log_level = :info
+    end
+
     attr_reader :command
     attr_reader :root
 
     def self.run(command = ARGV, root = nil)
-      obj = self.new(command, root)
+      self.root ||= File.expand_path("..", File.dirname(Kernel.caller[0]))
+      obj = self.new(command, self.root)
       obj.start
       obj.exit_value
     end
 
     def initialize(command, root)
-      self.root = root || File.expand_path("..", File.dirname(Kernel.caller[2]))
+      @root = root
       self.command = command
       @exit_value ||= 0
       @task = nil
@@ -23,13 +32,6 @@ module Lucie
 
     def exit_value
       @exit_value
-    end
-
-    class << self
-      attr_accessor :raise_exception
-      attr_accessor :log_level
-      @@raise_exception = false
-      @@log_level = :info
     end
 
 private
@@ -105,8 +107,8 @@ private
       controller.class.pair_parameters
     end
 
-    def root=(value)
-      @root = value
+    def root
+      App.root
     end
 
     def exception=(exception)

@@ -85,4 +85,8 @@ describe App do
       TestApp.run("method_missing no_method_with_this_name")
     end
   end
+
+  should "have a root directory which is the directory contains the bin and app folders" do
+    assert_equal File.expand_path("../..", __FILE__), TestApp.root
+  end
 end
