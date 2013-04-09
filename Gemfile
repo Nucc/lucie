@@ -2,7 +2,9 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem "rake"
-gem 'coveralls', require: false
-gem "minitest"
-gem "mini_shoulda"
+if ENV["TRAVIS"]
+  gem "rake"
+  gem "minitest"
+  gem "mini_shoulda"
+  gem "coveralls", require: false
+end
