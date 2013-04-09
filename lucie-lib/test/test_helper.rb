@@ -1,5 +1,7 @@
-require 'coveralls'
-Coveralls.wear!
+if ENV["TRAVIS"]
+  require 'coveralls'
+  Coveralls.wear!
+end
 
 # MiniTest is integrated to Ruby library and by default the test wants to use that.
 # Force the Rubygems version
