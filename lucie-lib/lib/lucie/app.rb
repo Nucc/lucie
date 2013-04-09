@@ -13,15 +13,15 @@ module Lucie
     attr_reader :root
 
     def self.run(command = ARGV, root = nil)
-      self.root ||= File.expand_path("..", File.dirname(Kernel.caller[0]))
-      obj = self.new(command, self.root)
+      root = File.expand_path("..", File.dirname(Kernel.caller[0]))
+      obj = self.new(command, root)
       obj.start
       obj.exit_value
     end
 
     def initialize(command, root)
-      @root = root
-      self.command = command
+      @root = File.expand_path("..", File.dirname(Kernel.caller[1]))
+      @command = CommandLineParser.new(command)
       @exit_value ||= 0
       @task = nil
     end
@@ -45,10 +45,6 @@ private
       give_user_friendly_error_message
       write_backtrace
       raise if self.class.raise_exception
-    end
-
-    def command=(value)
-      @command ||= CommandLineParser.new(value)
     end
 
     def help?
@@ -105,10 +101,6 @@ private
 
     def pair_parameters
       controller.class.pair_parameters
-    end
-
-    def root
-      App.root
     end
 
     def exception=(exception)

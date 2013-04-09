@@ -87,6 +87,6 @@ describe App do
   end
 
   should "have a root directory which is the directory contains the bin and app folders" do
-    assert_equal File.expand_path("../..", __FILE__), TestApp.root
+    assert_equal TestApp.new("", nil).root, File.expand_path("../..", __FILE__)
   end
 end
