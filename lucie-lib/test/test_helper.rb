@@ -1,5 +1,5 @@
-#require 'coveralls'
-#Coveralls.wear!
+require 'coveralls'
+Coveralls.wear!
 
 # MiniTest is integrated to Ruby library and by default the test wants to use that.
 # Force the Rubygems version
