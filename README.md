@@ -1,8 +1,16 @@
-# Lucie - Console Application Framework &nbsp; [![Code Climate](https://api.travis-ci.org/Nucc/lucie.png)](https://travis-ci.org/Nucc/lucie) [![Code Climate](https://codeclimate.com/github/Nucc/lucie.png)](https://codeclimate.com/github/Nucc/lucie) [![Coverage Status](https://coveralls.io/repos/Nucc/lucie/badge.png?branch=master)](https://coveralls.io/r/Nucc/lucie)
+# Lucie - Console Application Framework
 
 ## Description
 
-You can find more info about this project on its [homepage](http://my.luc.ie/).
+You can find more info about this project [here](http://my.luc.ie/).
+
+## Code status
+
+[![Code Climate](https://api.travis-ci.org/Nucc/lucie.png)](https://travis-ci.org/Nucc/lucie)
+
+[![Code Climate](https://codeclimate.com/github/Nucc/lucie.png)](https://codeclimate.com/github/Nucc/lucie)
+
+[![Coverage Status](https://coveralls.io/repos/Nucc/lucie/badge.png?branch=master)](https://coveralls.io/r/Nucc/lucie)
 
 ## Contributing
 
