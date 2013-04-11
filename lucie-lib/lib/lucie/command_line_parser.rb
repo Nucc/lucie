@@ -7,6 +7,7 @@ class CommandLineParser
   def initialize(parameters)
     @params_str = parameters.class == Array ? parameters.join(" ") : parameters
     @options = {}
+    @options[:args] = []
     @latest_option = nil
 
     parse_options()

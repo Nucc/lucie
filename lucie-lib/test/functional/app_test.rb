@@ -62,6 +62,12 @@ describe App do
     end
   end
 
+  should "call help method of ApplicationController when controller name is missing" do
+    assert_output "ApplicationController::help", "" do
+      TestApp.run ""
+    end
+  end
+
   should "return the exit value" do
     assert_equal 1, TestApp.run("exit_value method1")
   end

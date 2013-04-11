@@ -4,7 +4,8 @@ class CommandLineParserTest < MiniTest::Spec
 
   should "parse empty string" do
     parser = CommandLineParser.new ""
-    assert_equal Hash.new, parser.options
+    hash = {:args => []}
+    assert_equal hash, parser.options
   end
 
   should "parse short boolean value" do

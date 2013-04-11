@@ -65,8 +65,14 @@ private
     end
 
     def controller_class
-      @controller_class ||= [task.split("_").map{|i| i.capitalize}.join, "Controller"].join
-      Object.const_get(@controller_class.to_sym)
+      if task
+        @controller_class ||= [task.split("_").map{|i| i.capitalize}.join, "Controller"].join
+        Object.const_get(@controller_class.to_sym)
+      else
+        @controller_class = "ApplicationController"
+        @action = "help"
+        Object.const_get(@controller_class.to_sym)
+      end
     rescue NameError
       include_controller_for(task)
       Object.const_get(@controller_class.to_sym)

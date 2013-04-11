@@ -60,5 +60,10 @@ class MethodMissingController < Controller::Base
   end
 
   alias_method :no_method, :index
+end
 
+class ApplicationController < Controller::Base
+  def help
+    print "ApplicationController::help"
+  end
 end
