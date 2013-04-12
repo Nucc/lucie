@@ -63,7 +63,7 @@ private
     end
 
     def controller
-      @controller ||= controller_class.send(:new, command)
+      @controller ||= controller_class.send(:new, command, self)
     end
 
     def controller_class

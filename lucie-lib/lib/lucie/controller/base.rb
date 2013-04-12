@@ -5,13 +5,16 @@ module Lucie
       include Validators::MandatoryOption
       include Validators::Optional
 
+      attr_reader :app
+
       class << self
         @validators = []
         @params = CommandLineParser.new("")
       end
 
-      def initialize(command_line_parser)
+      def initialize(command_line_parser, app)
         self.class.params = command_line_parser
+        @app = app
       end
 
       def self.params=(params)
