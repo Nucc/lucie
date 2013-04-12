@@ -11,6 +11,7 @@ module Lucie
 
     attr_reader :command
     attr_reader :root
+    attr_reader :pwd
 
     def self.run(command = ARGV, root = nil)
       root = File.expand_path("..", File.dirname(Kernel.caller[0]))
@@ -24,6 +25,7 @@ module Lucie
       @command = CommandLineParser.new(command)
       @exit_value ||= 0
       @task = nil
+      @pwd = ENV["PWD"]
     end
 
     def start
