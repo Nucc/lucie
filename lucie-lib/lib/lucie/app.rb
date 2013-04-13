@@ -101,13 +101,13 @@ private
       if controller.respond_to? method
         # pop the args[0] element because this is the method
         @command.shift
-      else
+      elsif controller.respond_to? :no_method
         method = :no_method
+      else
+        self.exit_value = 255
+        raise ActionNotFound.new(action, task)
       end
       self.exit_value = controller.send(method)
-    rescue NameError
-      self.exit_value = 255
-      raise ActionNotFound.new(action, task)
     rescue Controller::ExitRequest => exit_request
       self.exit_value = exit_request.code
     end
