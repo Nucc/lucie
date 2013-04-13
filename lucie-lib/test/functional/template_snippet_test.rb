@@ -7,6 +7,8 @@ class TemplateSnippetTest < MiniTest::Spec
   include Snippets::Template
 
   before do
+    @template_path = nil
+    @template_file_name = nil
     @tmp_filename = template_path
     remove_file(@tmp_filename) # if it exists
   end
@@ -17,7 +19,6 @@ class TemplateSnippetTest < MiniTest::Spec
   end
 
   describe "create_file" do
-
     should "be able to create an empty file" do
       create_file @tmp_filename
       assert File.exists?(@tmp_filename)
@@ -51,11 +52,8 @@ class TemplateSnippetTest < MiniTest::Spec
 
     should "generate file relative to PWD that comes from app.pwd" do
       app = Class.new do
+        def initialize(root) @root = root end
         attr_reader :root
-
-        def initialize(root)
-          @root = root
-        end
       end
 
       TemplateController.new("", app.new(template_dir)).test_1(template_file_name)
@@ -64,7 +62,15 @@ class TemplateSnippetTest < MiniTest::Spec
   end
 
   context "template" do
-    before do @template_file = Tempfile.new(template_file_name, template_dir); end
+
+    before do
+      @template_file = Tempfile.new(template_file_name, template_dir)
+      @app = Class.new do
+        def initialize(root, pwd=nil) @root = root; @pwd = pwd end
+        attr_reader :root
+        attr_reader :pwd
+      end
+    end
 
     should "generate file from template using absolute directory" do
       File.open(@template_file, "w+") do |f|
@@ -72,8 +78,31 @@ class TemplateSnippetTest < MiniTest::Spec
       end
       @variable = "test_var_for_template"
 
-      template @template_file, @tmp_filename
+      template @template_file.path, @tmp_filename
       assert_equal "template test_var_for_template", File.open(@tmp_filename, "r").read
+    end
+
+    should "use APP_ROOT/app/templates directory if template has relative path" do
+      source = template_file_name
+      source_full_path = [template_dir, "app/templates", template_file_name].join("/")
+
+      create_file(source_full_path) { |f| f.print "template" }
+      TemplateController.new("", @app.new(template_dir)).test_template_1(source, @template_file.path)
+
+      remove_file(source_full_path)
+      assert_equal "template", File.read(@template_file)
+    end
+
+    should "generate file to PWD if target is relative path" do
+      File.open(@template_file, "w+") do |f|
+        f.write "template pwd"
+      end
+      TemplateController.new("", @app.new(template_dir, "/tmp")).test_template_1(@template_file.path, template_file_name)
+      begin
+        assert_equal "template pwd", File.read("/tmp/#{template_file_name}")
+      ensure
+        remove_file("/tmp/#{template_file_name}")
+      end
     end
 
   end
@@ -98,9 +127,7 @@ class TemplateSnippetTest < MiniTest::Spec
   end
 
   def remove_file(filename)
-    @filename ||= begin
-      FileUtils.remove_file(filename) if File.exists?(filename)
-    end
+    FileUtils.remove_file(filename) if File.exists?(filename)
   end
 
 end

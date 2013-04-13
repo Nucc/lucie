@@ -17,9 +17,7 @@ module Lucie
 
       def template(template, target)
         @file_utils_helper ||= FileUtilsHelper.new(self)
-        create_file(target) do |f|
-          f.write ERB.new(File.read(template)).result(binding)
-        end
+        @file_utils_helper.template(template, target, binding)
       end
 
     private
@@ -34,6 +32,14 @@ module Lucie
           path = normalized path
           create_dir_for path
           add_content_to_file path, &content
+        end
+
+        def template(template, target, binding)
+          template = "app/templates/#{template}" if is_relative?(template)
+          target   = [@controller.app.pwd, target].join("/") if is_relative?(target)
+          create_file(target) do |f|
+            f.write ERB.new(File.read(normalized(template))).result(binding)
+          end
         end
 
         def is_relative?(file_path)
