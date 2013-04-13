@@ -93,10 +93,11 @@ describe App do
   end
 
   should "have a root directory which is the directory contains the bin and app folders" do
-    assert_equal TestApp.new("", nil).root, File.expand_path("../..", __FILE__)
+    assert_equal File.expand_path("../..", __FILE__), TestApp.init("", nil).root
   end
 
   should "know the directory where it was called" do
     assert_equal TestApp.new("", nil).pwd, File.expand_path("../../../", __FILE__)
   end
+
 end

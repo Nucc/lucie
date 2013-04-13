@@ -14,14 +14,23 @@ module Lucie
     attr_reader :pwd
 
     def self.run(command = ARGV, root = nil)
-      root = File.expand_path("..", File.dirname(Kernel.caller[0]))
-      obj = self.new(command, root)
-      obj.start
-      obj.exit_value
+      root ||= File.expand_path("..", File.dirname(Kernel.caller[0]))
+      instance = self.init(command, root)
+      self.start(instance)
+    end
+
+    def self.init(command = ARGV, root = nil)
+      root ||= File.expand_path("..", File.dirname(Kernel.caller[0]))
+      self.new(command, root)
+    end
+
+    def self.start(instance)
+      instance.start
+      instance.exit_value
     end
 
     def initialize(command, root)
-      @root = File.expand_path("..", File.dirname(Kernel.caller[1]))
+      @root = root
       @command = CommandLineParser.new(command)
       @exit_value ||= 0
       @task = nil
