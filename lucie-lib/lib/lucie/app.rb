@@ -80,6 +80,7 @@ private
         @controller_class ||= [task.split("_").map{|i| i.capitalize}.join, "Controller"].join
         Object.const_get(@controller_class.to_sym)
       else
+        include_controller_for "application"
         @controller_class = "ApplicationController"
         @action = "help"
         Object.const_get(@controller_class.to_sym)

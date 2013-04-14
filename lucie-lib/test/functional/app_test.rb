@@ -64,7 +64,7 @@ describe App do
 
   should "call help method of ApplicationController when controller name is missing" do
     assert_output "ApplicationController::help", "" do
-      TestApp.run ""
+      TestApp.run "", File.expand_path("../../test_app/", __FILE__)
     end
   end
 
