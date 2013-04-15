@@ -15,7 +15,7 @@ class TemplateSnippetTest < MiniTest::Spec
 
   after do
     remove_file(@tmp_filename)
-    FileUtils.rmtree([template_dir, "a"].join("/"))
+    FileUtils.rmtree(File.join([template_dir, "a"]))
   end
 
   describe "create_file" do
@@ -25,7 +25,7 @@ class TemplateSnippetTest < MiniTest::Spec
     end
 
     should "be able to generate multi level directory if it doesn't exist" do
-      @tmp_filename = [template_dir, "a", "b", template_file_name].join("/")
+      @tmp_filename = File.join([template_dir, "a", "b", template_file_name])
       create_file @tmp_filename
       assert File.exists?(@tmp_filename)
     end
@@ -90,7 +90,7 @@ class TemplateSnippetTest < MiniTest::Spec
       empty(@template_file)
 
       source = template_file_name
-      source_full_path = [template_dir, "app/templates", template_file_name].join("/")
+      source_full_path = File.join([template_dir, "app/templates", template_file_name])
 
       create_file(source_full_path) { |f| f.print "template" }
       TemplateController.new("", @app.new(template_dir)).test_template_1(source, @template_file.path)
@@ -125,7 +125,7 @@ class TemplateSnippetTest < MiniTest::Spec
 
   def template_path
     @template_path ||= begin
-      [template_dir, template_file_name].join("/")
+      File.join([template_dir, template_file_name])
     end
   end
 

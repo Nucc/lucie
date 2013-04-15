@@ -91,7 +91,7 @@ private
     end
 
     def include_controller_for(task)
-      require [root, "app/controllers", "#{task}_controller"].join("/")
+      require File.join([root, "app/controllers", "#{task}_controller"])
     rescue LoadError
       self.exit_value = 255
       raise ControllerNotFound, task

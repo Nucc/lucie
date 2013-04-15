@@ -36,7 +36,7 @@ module Lucie
 
         def template(template, target, binding)
           template = "app/templates/#{template}" if is_relative?(template)
-          target   = [@controller.app.pwd, target].join("/") if is_relative?(target)
+          target   = File.join([@controller.app.pwd, target]) if is_relative?(target)
           create_file(target) do |f|
             f.write ERB.new(File.read(normalized(template))).result(binding)
           end
@@ -48,7 +48,7 @@ module Lucie
 
         def normalized(path)
           if is_relative?(path)
-            [@controller.app.root, path].join("/")
+            File.join([@controller.app.root, path])
           else
             path
           end
