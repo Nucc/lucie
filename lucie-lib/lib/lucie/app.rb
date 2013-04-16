@@ -67,8 +67,9 @@ private
     end
 
     def action
-      @action ||= @command.args.first
-      @action ? @action.to_sym : :index
+      @action ||= begin
+        @command.args.first ? @command.args.first.to_sym : :index
+      end
     end
 
     def controller
