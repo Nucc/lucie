@@ -98,12 +98,13 @@ private
       raise ControllerNotFound, task
     end
 
+
     def call_action_on_controller
       method = action
-      if controller.respond_to? method
+      if controller_has_action? method
         # pop the args[0] element because this is the method
         @command.shift
-      elsif controller.respond_to? :no_method
+      elsif controller_has_action? :no_method
         method = :no_method
       else
         self.exit_value = 255
@@ -112,6 +113,11 @@ private
       self.exit_value = controller.send(method)
     rescue Controller::ExitRequest => exit_request
       self.exit_value = exit_request.code
+    end
+
+    def controller_has_action?(action)
+      @public_actions ||= controller_class.public_instance_methods(false)
+      @public_actions.include?(action)
     end
 
     def apply_validators

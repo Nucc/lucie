@@ -61,3 +61,9 @@ class MethodMissingController < Controller::Base
 
   alias_method :no_method, :index
 end
+
+class DerivedController < CallIndexController
+  def new_method
+    print "new_method"
+  end
+end

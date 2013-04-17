@@ -31,6 +31,10 @@ describe App do
       assert_raises(Lucie::RequestError){ TestApp.run("optional_mandatory search") }
       assert_output("Ok", nil) { TestApp.run("optional_mandatory no_mandatory") }
     end
+
+    should "not be able to call method from inherited class" do
+      assert_raises(Lucie::ActionNotFound) { TestApp.run("derived index") }
+    end
   end
 
   should "be able to pair parameters" do
@@ -99,5 +103,4 @@ describe App do
   should "know the directory where it was called" do
     assert_equal TestApp.new("", nil).pwd, File.expand_path("../../../", __FILE__)
   end
-
 end
