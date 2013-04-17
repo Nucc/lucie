@@ -32,8 +32,12 @@ describe App do
       assert_output("Ok", nil) { TestApp.run("optional_mandatory no_mandatory") }
     end
 
-    should "not be able to call method from inherited class" do
-      assert_raises(Lucie::ActionNotFound) { TestApp.run("derived index") }
+    should "not be able to call method from Object class" do
+      assert_raises(Lucie::ActionNotFound) { TestApp.run("derived public_methods") }
+    end
+
+    should "not be able to call method from Controller::Base class" do
+      assert_raises(Lucie::ActionNotFound) { TestApp.run("derived params") }
     end
   end
 

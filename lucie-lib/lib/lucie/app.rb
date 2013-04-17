@@ -83,7 +83,7 @@ private
       else
         include_controller_for "application"
         @controller_class = "ApplicationController"
-        @action = "help"
+        @action = :help
         Object.const_get(@controller_class.to_sym)
       end
     rescue NameError
@@ -101,7 +101,7 @@ private
 
     def call_action_on_controller
       method = action
-      if controller_has_action? method
+      if controller_has_action? action
         # pop the args[0] element because this is the method
         @command.shift
       elsif controller_has_action? :no_method
@@ -116,7 +116,9 @@ private
     end
 
     def controller_has_action?(action)
-      @public_actions ||= controller_class.public_instance_methods(false)
+      @public_actions ||= begin
+        controller_class.public_instance_methods - Controller::Base.public_instance_methods + [:help]
+      end
       @public_actions.include?(action)
     end
 
