@@ -45,6 +45,10 @@ module Lucie
       @exit_value
     end
 
+    def env
+      ENV
+    end
+
 private
 
     def call_method_invoking_process
@@ -97,7 +101,6 @@ private
       self.exit_value = 255
       raise ControllerNotFound, task
     end
-
 
     def call_action_on_controller
       method = action
