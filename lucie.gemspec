@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.authors       = ["Nucc"]
   gem.email         = ["nucc@bteam.hu"]
   gem.description   = %q{Command line utility framework}
-  gem.summary       = %q{}
+  gem.summary       = %q{Lucie is a console application framework like Rails for Ruby programmers or Symfony for PHP developers. While these tools help the web developers in create beautiful websites rapidly, there's no easy way to create complex console applications like do this in Ruby on Rails. Lucie wants to bridge this gap.}
   gem.homepage      = "http://my.luc.ie"
 
   gem.files = ["README.md"]
