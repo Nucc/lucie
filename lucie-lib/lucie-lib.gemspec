@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors       = ["Nucc"]
   s.email         = ["nucc@bteam.hu"]
   s.description   = %q{Command line utility framework}
-  s.summary       = %q{}
-  s.homepage      = ""
+  s.summary       = %q{Library part of Lucie framework. Use only this gem, if you don't need project generator.}
+  s.homepage      = "http://my.luc.ie"
 
   s.files         = `git ls-files`.split($/)
   s.executables   = s.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
