@@ -1,5 +1,6 @@
 require "bundler/gem_tasks"
 require 'rake/testtask'
+require 'rdoc/task'
 
 Rake::TestTask.new do |t|
   t.libs << 'lib/lucie'
@@ -9,3 +10,7 @@ Rake::TestTask.new do |t|
   t.warning = true if ENV["TRAVIS"]
 end
 task :default => :test
+
+RDoc::Task.new :doc do |rdoc|
+  rdoc.rdoc_files.include("lib/*.rb")
+end
