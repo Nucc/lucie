@@ -1,4 +1,9 @@
+
+
 module Lucie
+  # App responsible for configuring and launch the application
+  # based on Lucie application framework.
+  #
   class App
 
     class << self
@@ -122,7 +127,7 @@ private
       @public_actions ||= begin
         controller_class.public_instance_methods - Controller::Base.public_instance_methods + [:help]
       end
-      @public_actions.include?(action)
+      @public_actions.include?(action.to_sym)
     end
 
     def apply_validators
