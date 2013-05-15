@@ -13,6 +13,8 @@ task :default => :test
 if !ENV["TRAVIS"]
   require 'rdoc/task'
   RDoc::Task.new :doc do |rdoc|
+    rdoc.rdoc_dir = '../doc'
+    rdoc.options << '-f' << 'sdoc'
     rdoc.rdoc_files.include("lib/*.rb")
   end
 end
