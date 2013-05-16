@@ -21,4 +21,5 @@ Gem::Specification.new do |s|
 
   s.add_dependency "lucie-lib", version
   s.add_development_dependency "sdoc"
+  s.add_development_dependency "minitest"
 end
