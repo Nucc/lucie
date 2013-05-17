@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'controllers/new_controller'
+require 'new_controller'
 
 describe NewController do
 
