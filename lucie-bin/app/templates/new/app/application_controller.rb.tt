@@ -1,0 +1,9 @@
+class ApplicationController < Controller::Base
+  # include Snippets::Template
+
+  def help
+    puts "HELP <%= @project_name %>"
+    puts ""
+    puts "<%= @project_name %> [help]"
+  end
+end
