@@ -1,5 +1,7 @@
-require_relative "lucie/version"
-require_relative "lucie/exceptions"
+$LOAD_PATH << File.expand_path("..", __FILE__)
+
+require "lucie/version"
+require "lucie/exceptions"
 
 module Lucie
 
@@ -19,9 +21,8 @@ module Lucie
 
 end
 
-require_relative "lucie/command_line_parser"
-require_relative "lucie/app"
-require_relative "lucie/controller/base"
+require "lucie/command_line_parser"
+require "lucie/app"
+require "lucie/controller/base"
 
 include Lucie
-
