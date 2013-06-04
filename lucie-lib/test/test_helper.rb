@@ -7,6 +7,7 @@ end
 # Force the Rubygems version
 require 'minitest/autorun'
 require "mini_shoulda"
+require "pathname"
 #require 'debugger'
 
 require File.expand_path('../../lib/lucie.rb', __FILE__)
@@ -32,5 +33,11 @@ class MiniTest::Spec
 
   def reset_stderr_redirection
     $stderr = @stderr
+  end
+end
+
+class String
+  def path
+    Pathname.new(self.to_s).realpath.to_s
   end
 end

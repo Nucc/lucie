@@ -105,7 +105,7 @@ describe App do
   end
 
   should "know the directory where it was called" do
-    assert_equal TestApp.new("", nil).pwd, File.expand_path("../../../", __FILE__)
+    assert_equal TestApp.new("", nil).pwd.path, File.expand_path("../../../", __FILE__).path
   end
 
   should "store the ENV" do
