@@ -22,6 +22,7 @@ module Lucie
 end
 
 require "lucie/command_line_parser"
+require "lucie/router"
 require "lucie/app"
 require "lucie/controller/base"
 
