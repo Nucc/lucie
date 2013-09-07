@@ -17,8 +17,8 @@ Gem::Specification.new do |s|
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ["lib"]
 
-  s.add_development_dependency "rake"
-  s.add_development_dependency "minitest"
-  s.add_development_dependency "mini_shoulda"
+  s.add_development_dependency "rake", "10.0.3"
+  s.add_development_dependency "minitest", "4.6"
+  s.add_development_dependency "mini_shoulda", "0.4.0"
   s.add_development_dependency "sdoc"
 end
