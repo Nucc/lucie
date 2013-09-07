@@ -11,7 +11,7 @@ end
 module Kernel
 
   def after_all &block
-    MiniTest::Unit.after_tests do
+    MiniTest.after_run do
       yield block
     end
   end
