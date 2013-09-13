@@ -11,7 +11,5 @@ require "mini_shoulda"
 
 require "lucie-cmd"
 
-require "fixtures/command_fixture"
-
 class MiniTest::Spec
 end

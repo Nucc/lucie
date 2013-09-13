@@ -2,14 +2,49 @@ require "test_helper"
 require "stringio"
 
 class CommandTest < MiniTest::Spec
+  include Lucie::Commands
+
   context "sh" do
-    before do
-      @fixture = CommandFixture.new
+    it "runs a command" do
+      sh "echo 123"
+      assert_equal "123\n", output
     end
 
-    it "should be able to run a command" do
-      @fixture.test_sh "echo 123"
-      assert_equal "123", @fixture.output
+    it "runs more commands" do
+      sh "echo 1"
+      assert_equal "1\n", output
+      sh "echo 2"
+      assert_equal "2\n", output
+    end
+
+    it "knows the return status" do
+      sh "false"
+      assert_equal 1, status
+
+      sh "true"
+      assert_equal 0, status
+    end
+
+    it "can handle return status of concurrent processes" do
+      i = 0
+      th1 = Thread.new do
+        sh "true"
+        i = 1
+        sleep 0 while i != 2
+        assert 0, status
+        i = 3
+      end
+
+      th2 = Thread.new do
+        sleep 0 while i != 1
+        sh "false"
+        i = 2
+        sleep 0 while i != 3
+        assert 1, status
+      end
+
+      th1.join
+      th2.join
     end
   end
 end

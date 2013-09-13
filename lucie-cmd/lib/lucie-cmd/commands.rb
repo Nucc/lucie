@@ -1,3 +1,5 @@
+require 'open4'
+
 module Lucie
   module Commands
 
@@ -8,16 +10,32 @@ module Lucie
       @commands_helper.sh *args
     end
 
+    def output
+      @commands_helper.output
+    end
+
+    def status
+      @commands_helper.status
+    end
+
   private
 
     class CommandsHelper
-      def initialize(stdout = $stdout, stderr = $stderr)
-        @stdout = stdout
-        @stderr = stderr
+      def initialize
+        @stderr = $stderr
       end
 
       def sh(*args)
-        system *args, out: @stdout, err: @stderr
+        @pid, @stdin, @stdout, @stderr = Open4::popen4(args.join(" "))
+        @ignored, @status = Process::waitpid2 @pid
+      end
+
+      def output
+        @stdout.read
+      end
+
+      def status
+        @status.to_i % 255
       end
     end
   end
