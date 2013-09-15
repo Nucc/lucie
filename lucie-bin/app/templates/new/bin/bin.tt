@@ -8,6 +8,7 @@ $stderr.sync = true
 
 require "rubygems"
 require "bundler"
+require "lucie"
 Bundler.require(:default)
 
 App.run()
