@@ -1,3 +1,4 @@
 source "https://rubygems.org"
 
 gem "lucie-lib", "~><%= @lucie_version %>"
+# gem "lucie-cmd", "~><%= @lucie_version %>"
