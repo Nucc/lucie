@@ -1,6 +1,6 @@
 require "bundler/gem_tasks"
 
-SUBPROJECTS = %w(lucie-lib lucie-bin)
+SUBPROJECTS = %w(lucie-lib lucie-bin lucie-cmd)
 
 desc 'Run all tests'
 task :default => %w(test)
@@ -13,4 +13,12 @@ task :default => %w(test)
     end
     fail("Errors in #{errors.join(', ')}") unless errors.empty?
   end
+end
+
+task :release do
+    errors = []
+    SUBPROJECTS.merge(["."]).each do |project|
+      system(%(cd #{project} && #{$0} release)) || errors << project
+    end
+    fail("Errors in #{errors.join(', ')}") unless errors.empty?
 end
