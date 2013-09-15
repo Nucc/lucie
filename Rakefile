@@ -17,7 +17,7 @@ end
 
 task :release do
     errors = []
-    SUBPROJECTS.merge(["."]).each do |project|
+    SUBPROJECTS.dup.push(".").each do |project|
       system(%(cd #{project} && #{$0} release)) || errors << project
     end
     fail("Errors in #{errors.join(', ')}") unless errors.empty?
