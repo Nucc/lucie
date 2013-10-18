@@ -14,3 +14,12 @@ task :default => %w(test)
     fail("Errors in #{errors.join(', ')}") unless errors.empty?
   end
 end
+
+namespace :update do
+  task :all do
+    SUBPROJECTS.each do |project|
+      system "bunde update"
+    end
+    system "bundle update"
+  end
+end
