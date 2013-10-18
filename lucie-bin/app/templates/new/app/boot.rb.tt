@@ -1,0 +1,11 @@
+Signal.trap("INT") { exit 1 }
+
+# Should not buffer stdout and strerr
+$stdout.sync = true
+$stderr.sync = true
+
+require "rubygems"
+require "bundler/setup"
+require "lucie"
+
+App.run()

@@ -1,0 +1,8 @@
+task :setup do
+  version = ENV["RUBY_VERSION"]
+  File.open ".ruby-version", "w" do |f|
+    puts "Fix the ruby version in .ruby-version file"
+    f << version
+  end
+  system "rvm #{version} do bundle install"
+end

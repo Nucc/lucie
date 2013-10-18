@@ -1,14 +1,5 @@
-#!/usr/bin/env ruby
+#!/bin/bash
 
-Signal.trap("INT") { exit 1 }
-
-# Should not buffer stdout and strerr
-$stdout.sync = true
-$stderr.sync = true
-
-require "rubygems"
-require "bundler"
-require "lucie"
-Bundler.require(:default)
-
-App.run()
+CURRENT_FILE="$( dirname "${BASH_SOURCE[0]}" )"
+VERSION="$( cat "$CURRENT_FILE/../.ruby-version" )"
+cd "$CURRENT_FILE/../" && rvm $VERSION do bundle exec ruby app/boot.rb
