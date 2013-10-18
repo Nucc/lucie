@@ -31,7 +31,7 @@ describe NewController do
       found = false
       File.open(app_path("Gemfile")) do |f|
         f.each_line do |line|
-          found ||= (line =~ /lucie-lib/)
+          found ||= (line =~ /lucie/)
         end
       end
       assert found
