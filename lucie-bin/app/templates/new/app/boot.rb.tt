@@ -7,5 +7,8 @@ $stderr.sync = true
 require "rubygems"
 require "bundler/setup"
 require "lucie"
+require "lucie-cmd"
 
-App.run()
+root = ARGV.shift
+
+App.run(ARGV, File.expand_path("../..", __FILE__), root)

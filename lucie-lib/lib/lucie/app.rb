@@ -18,15 +18,15 @@ module Lucie
     attr_reader :root
     attr_reader :pwd
 
-    def self.run(command = ARGV, root = nil)
+    def self.run(command = ARGV, root = nil, pwd = nil)
       root ||= File.expand_path("..", File.dirname(Kernel.caller[0]))
-      instance = self.init(command, root)
+      instance = self.init(command, root, pwd)
       self.start(instance)
     end
 
-    def self.init(command = ARGV, root = nil)
+    def self.init(command = ARGV, root = nil, pwd = nil)
       root ||= File.expand_path("..", File.dirname(Kernel.caller[0]))
-      self.new(command, root)
+      self.new(command, root, pwd)
     end
 
     def self.start(instance)
@@ -34,12 +34,13 @@ module Lucie
       instance.exit_value
     end
 
-    def initialize(command, root)
+    def initialize(command, root, pwd = nil)
       @root = root
       @command = CommandLineParser.new(command)
       @exit_value ||= 0
       @task = nil
-      @pwd = ENV["PWD"]
+      @pwd = pwd || ENV["PWD"]
+      Dir.chdir(@pwd)
     end
 
     def start
