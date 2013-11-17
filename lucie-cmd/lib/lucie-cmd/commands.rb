@@ -7,7 +7,7 @@ module Lucie
 
     def sh(*args)
       @commands_helper ||= CommandsHelper.new
-      _, status = @commands_helper.sh(*args)
+      status = @commands_helper.sh(*args)
       status.to_i == 0
     end
 
@@ -24,6 +24,11 @@ module Lucie
       @commands_helper.status
     end
 
+    def on(opts = [])
+      @commands_helper ||= CommandsHelper.new
+      @commands_helper.on(Array(opts))
+    end
+
   private
 
     class CommandsHelper
@@ -32,24 +37,43 @@ module Lucie
       def initialize
         @stderr = $stderr
         @pwd = Dir.pwd
+        @opts = []
       end
 
       def sh(*args)
         command = args.join(" ")
-        @pid, @stdin, @stdout, @stderr = Open4::popen4("cd \"#{pwd}\" && #{command}")
-        @ignored, @status = Process::waitpid2 @pid
+
+        if @opts.include? :show_command
+          puts "$ #{command}"
+        end
+
+        @status = Open4::popen4("cd \"#{pwd}\" && #{command}") do |pid, stdin, stdout, stderr|
+          @stdin, @stderr, @pid = stdin, stderr, pid
+          @output = ""
+          if !stdout.eof()
+            new_content = stdout.read
+            if @opts.include? :live_input
+              print new_content
+            end
+            @output << new_content
+          end
+        end
       end
 
       def output
-        @stdout.read
+        @output
       end
 
       def status
-        @status.to_i % 255
+        @status.exitstatus.to_i % 255
       end
 
       def pwd=(val)
         @pwd = File.expand_path(val, @pwd)
+      end
+
+      def on(opts = [])
+        @opts = @opts | opts
       end
     end
   end

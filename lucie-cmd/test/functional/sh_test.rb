@@ -47,11 +47,27 @@ class ShTest < MiniTest::Spec
   end
 
   it "should return true if response status of the command was 0" do
-    assert sh "exit 0"
+    assert_equal true, sh("true")
   end
 
   it "should return false if the response status of the command was not 0" do
-    assert !(sh "exit 1")
+    assert_equal false, sh("false")
+  end
+
+  it "should be able to put the output realtime" do
+    on :live_input
+    out, err = capture_io do
+      sh "echo test"
+    end
+    assert_equal "test\n", out
+  end
+
+  it "should be able to show the command" do
+    on :show_command
+    out, err = capture_io do
+      sh "echo test"
+    end
+    assert_equal "$ echo test\n", out
   end
 
 end
