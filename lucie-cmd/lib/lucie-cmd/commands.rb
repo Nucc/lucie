@@ -34,6 +34,22 @@ module Lucie
       @commands_helper.unset(Array(opts))
     end
 
+    def red(text)
+      puts colorize(text, 31)
+    end
+
+    def green(text)
+      puts colorize(text, 32)
+    end
+
+    def yellow(text)
+      puts colorize(text, 33)
+    end
+
+    def colorize(text, color_code)
+      "\e[#{color_code}m#{text}\e[0m"
+    end
+
   private
 
     class CommandsHelper
