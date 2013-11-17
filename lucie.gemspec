@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
-version = File.read(File.expand_path('../version', __FILE__)).strip
+require File.expand_path("../lucie-lib/lib/lucie/version", __FILE__)
+version = Lucie::VERSION
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
