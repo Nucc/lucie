@@ -46,4 +46,12 @@ class ShTest < MiniTest::Spec
     th2.join
   end
 
+  it "should return true if response status of the command was 0" do
+    assert sh "exit 0"
+  end
+
+  it "should return false if the response status of the command was not 0" do
+    assert !(sh "exit 1")
+  end
+
 end

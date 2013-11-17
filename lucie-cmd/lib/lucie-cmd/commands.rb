@@ -7,7 +7,8 @@ module Lucie
 
     def sh(*args)
       @commands_helper ||= CommandsHelper.new
-      @commands_helper.sh(*args)
+      _, status = @commands_helper.sh(*args)
+      status.to_i == 0
     end
 
     def cd(*args)
