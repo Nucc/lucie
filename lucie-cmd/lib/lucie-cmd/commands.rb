@@ -24,15 +24,20 @@ module Lucie
       @commands_helper.status
     end
 
-    def on(opts = [])
+    def set(opts = [])
       @commands_helper ||= CommandsHelper.new
-      @commands_helper.on(Array(opts))
+      @commands_helper.set(Array(opts))
+    end
+
+    def unset(opts = [])
+      @commands_helper ||= CommandsHelper.new
+      @commands_helper.unset(Array(opts))
     end
 
   private
 
     class CommandsHelper
-      attr_accessor :pwd
+      attr_reader :pwd
 
       def initialize
         @stderr = $stderr
@@ -52,7 +57,7 @@ module Lucie
           @output = ""
           if !stdout.eof()
             new_content = stdout.read
-            if @opts.include? :live_input
+            if @opts.include? :live_output
               print new_content
             end
             @output << new_content
@@ -72,8 +77,12 @@ module Lucie
         @pwd = File.expand_path(val, @pwd)
       end
 
-      def on(opts = [])
+      def set(opts = [])
         @opts = @opts | opts
+      end
+
+      def unset(opts = [])
+        opts.each { |opt| @opts.delete(opt) }
       end
     end
   end

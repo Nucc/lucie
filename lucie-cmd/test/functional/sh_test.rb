@@ -55,19 +55,28 @@ class ShTest < MiniTest::Spec
   end
 
   it "should be able to put the output realtime" do
-    on :live_input
-    out, err = capture_io do
+    set :live_output
+    out, _ = capture_io do
       sh "echo test"
     end
     assert_equal "test\n", out
   end
 
   it "should be able to show the command" do
-    on :show_command
-    out, err = capture_io do
+    set :show_command
+    out, _ = capture_io do
       sh "echo test"
     end
     assert_equal "$ echo test\n", out
+  end
+
+  it "should have an unset to turn off realtime output" do
+    set :live_output
+    unset :live_output
+    out, _ = capture_io do
+      sh "echo test"
+    end
+    assert_equal "", out
   end
 
 end
