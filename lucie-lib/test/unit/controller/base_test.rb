@@ -10,4 +10,12 @@ class ControllerBaseTest < MiniTest::Unit::TestCase
     assert_equal app, controller.app
   end
 
+  def test_before_filter
+    require "before_filter_controller"
+
+    controller = BeforeFilterController.new(nil, Object.new)
+    controller.send(:apply_action, :method1)
+    assert_equal true, controller.touched
+  end
+
 end

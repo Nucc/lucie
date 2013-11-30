@@ -109,26 +109,16 @@ private
     end
 
     def call_action_on_controller
-      method = action
-      if controller_has_action? action
-        # pop the args[0] element because this is the method
-        @command.shift
-      elsif controller_has_action? :no_method
-        method = :no_method
-      else
-        self.exit_value = 255
-        raise ActionNotFound.new(action, task)
-      end
-      self.exit_value = controller.send(method)
-    rescue Controller::ExitRequest => exit_request
-      self.exit_value = exit_request.code
-    end
+      begin
+        self.exit_value = controller.send(:apply_action, action)
 
-    def controller_has_action?(action)
-      @public_actions ||= begin
-        controller_class.public_instance_methods - Controller::Base.public_instance_methods + [:help]
+        # pop the args[0] element because this is the method
+        command.shift
+      rescue NameError
+        self.exit_value = controller.send(:apply_action, :no_method)
       end
-      @public_actions.include?(action.to_sym)
+    rescue NameError
+      raise ActionNotFound.new(action, task)
     end
 
     def apply_validators
