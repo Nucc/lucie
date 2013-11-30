@@ -11,8 +11,8 @@ module Lucie
         @validators = []
         @params = CommandLineParser.new("")
       protected
-        attr_accessor :before_filter_args
         @before_filter_args = []
+        attr_accessor :before_filter_args
       end
 
       def help
@@ -60,7 +60,7 @@ module Lucie
       end
 
       def self.before_filter(*args)
-        self.before_filter_args ||= Array.new
+        self.before_filter_args ||= []
         args.each do |value|
           self.before_filter_args << value
         end
@@ -72,19 +72,29 @@ module Lucie
 
       def apply_action(action)
         if has_action? action
+
           self.apply_before_filters
-          return self.send(action)
+
+          begin
+            return self.send(action)
+          rescue NameError
+            raise ActionNotFound.new(action, nil)
+          end
         else
-          raise NameError.new
+          raise ActionNotFound.new(action, nil)
         end
       rescue Controller::ExitRequest => exit_request
         return exit_request.code
       end
 
       def apply_before_filters
-        args = Array(self.class.send(:before_filter_args))
-        args.each do |method|
-          self.send(method.to_sym)
+        klass = self.class
+        while klass.respond_to?(:before_filter)
+          args = Array(klass.send(:before_filter_args))
+          args.each do |method|
+            self.send(method.to_sym)
+          end
+          klass = klass.superclass
         end
       end
 

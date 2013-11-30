@@ -114,10 +114,10 @@ private
 
         # pop the args[0] element because this is the method
         command.shift
-      rescue NameError
+      rescue ActionNotFound
         self.exit_value = controller.send(:apply_action, :no_method)
       end
-    rescue NameError
+    rescue ActionNotFound
       raise ActionNotFound.new(action, task)
     end
 
