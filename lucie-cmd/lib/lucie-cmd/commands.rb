@@ -34,6 +34,18 @@ module Lucie
       @commands_helper.unset(Array(opts))
     end
 
+    def error(text)
+      $stderr.puts colorize(text, 31)
+    end
+
+    def warn(text)
+      $stderr.puts colorize(text, 32)
+    end
+
+    def notice(text)
+      $stderr.puts colorize(text, 33)
+    end
+
     def red(text)
       puts colorize(text, 31)
     end

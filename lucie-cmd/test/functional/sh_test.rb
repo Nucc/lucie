@@ -80,25 +80,30 @@ class ShTest < MiniTest::Spec
   end
 
   it "should be able to use green color for output" do
-    out, _ = capture_io do
+    out, err = capture_io do
       green "Hello world"
+      warn  "Hello world"
     end
     assert_equal "\e[32mHello world\e[0m\n", out
+    assert_equal "\e[32mHello world\e[0m\n", err
   end
 
   it "should be able to use red color for output" do
-    out, _ = capture_io do
+    out, err = capture_io do
       red "Hello world"
+      error "Hello world"
     end
     assert_equal "\e[31mHello world\e[0m\n", out
+    assert_equal "\e[31mHello world\e[0m\n", err
   end
 
   it "should be able to use yellow color for output" do
-    out, _ = capture_io do
+    out, err = capture_io do
       yellow "Hello world"
+      notice "Hello world"
     end
     assert_equal "\e[33mHello world\e[0m\n", out
+    assert_equal "\e[33mHello world\e[0m\n", err
   end
-
 
 end
