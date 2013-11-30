@@ -18,7 +18,7 @@ end
 namespace :update do
   task :all do
     SUBPROJECTS.each do |project|
-      system "bunde update"
+      system "bundle update"
     end
     system "bundle update"
   end
