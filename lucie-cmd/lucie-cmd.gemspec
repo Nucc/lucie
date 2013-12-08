@@ -22,5 +22,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency "minitest", "4.6"
   s.add_development_dependency "mini_shoulda", "0.4.0"
   s.add_development_dependency "sdoc"
-  s.add_dependency "open4", "1.3.0"
 end

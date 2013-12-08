@@ -1,4 +1,4 @@
-require 'open4'
+require 'open3'
 
 module Lucie
   module Commands
@@ -80,24 +80,20 @@ module Lucie
           puts "$ #{command}"
         end
 
-        @status = Open4::popen4("cd \"#{pwd}\" && #{command}") do |pid, stdin, stdout, stderr|
-          @pid = pid
-          @output = ""
-          if !stdout.eof
-            new_content = stdout.read
-            if @opts.include? :live_output
-              print new_content
-            end
-            @output << new_content
+        @output = ""
+
+        Open3.popen3("cd \"#{pwd}\" && #{command}") {|stdin, stdout, stderr, wait_thr|
+          @pid = wait_thr.pid # pid of the started process.
+
+          if @opts.include? :live_output
+            puts stdout.read if !stdout.eof
+            @stderr << stderr.read if !stderr.eof
           end
-          if !stderr.eof
-           new_content = stderr.read
-           if @opts.include? :live_output
-             @stderr.print new_content
-           end
-           @output << new_content
-          end
-        end
+          @output << stdout.read if !stdout.eof
+          @output << stderr.read if !stderr.eof
+
+          @status = wait_thr.value # Process::Status object returned.
+        }
       end
 
       def output

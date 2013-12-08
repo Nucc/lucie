@@ -25,7 +25,7 @@ class CdTest < MiniTest::Spec
   end
 
   it "should log the cd path on console when live_output is on" do
-    out, err = capture_io do
+    out, _ = capture_io do
       set :live_output
       cd "/tmp"
     end
