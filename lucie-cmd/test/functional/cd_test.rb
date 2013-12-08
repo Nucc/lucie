@@ -23,4 +23,12 @@ class CdTest < MiniTest::Spec
     sh "pwd"
     assert_equal "/sbin\n", output
   end
+
+  it "should log the cd path on console when live_output is on" do
+    out, err = capture_io do
+      set :live_output
+      cd "/tmp"
+    end
+    assert_equal "$ cd '/tmp'\n", out
+  end
 end

@@ -110,6 +110,9 @@ module Lucie
 
       def pwd=(val)
         @pwd = File.expand_path(val, @pwd)
+        if @opts.include? :live_output
+          puts "$ cd '#{@pwd}'"
+        end
       end
 
       def set(opts = [])
