@@ -81,14 +81,21 @@ module Lucie
         end
 
         @status = Open4::popen4("cd \"#{pwd}\" && #{command}") do |pid, stdin, stdout, stderr|
-          @stdin, @stderr, @pid = stdin, stderr, pid
+          @pid = pid
           @output = ""
-          if !stdout.eof()
+          if !stdout.eof
             new_content = stdout.read
             if @opts.include? :live_output
               print new_content
             end
             @output << new_content
+          end
+          if !stderr.eof
+           new_content = stderr.read
+           if @opts.include? :live_output
+             @stderr.print new_content
+           end
+           @output << new_content
           end
         end
       end

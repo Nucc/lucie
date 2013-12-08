@@ -79,6 +79,14 @@ class ShTest < MiniTest::Spec
     assert_equal "", out
   end
 
+  it "should log stderr when live_output is on" do
+    _, err = capture_io do
+      set :live_output
+      sh "echo test 1>&2"
+    end
+    assert_equal "test\n", err
+  end
+
   it "should be able to use green color for output" do
     out, err = capture_io do
       green "Hello world"
