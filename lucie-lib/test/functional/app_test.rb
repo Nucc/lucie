@@ -111,4 +111,14 @@ describe App do
   should "store the ENV" do
     assert_equal ENV["PWD"], TestApp.init([], "").env["PWD"]
   end
+
+  should "find other controllers as well in controllers directory without require statement" do
+    if defined?(FakeController)
+      Object.send(:remove_const, :FakeController)
+    end
+
+    assert_output "ok", "" do
+      TestApp.run "inheritance index", File.expand_path("../../test_app/", __FILE__)
+    end
+  end
 end

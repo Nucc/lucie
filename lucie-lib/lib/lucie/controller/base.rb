@@ -72,14 +72,8 @@ module Lucie
 
       def apply_action(action)
         if has_action? action
-
           self.apply_before_filters
-
-          begin
-            return self.send(action)
-          rescue NameError
-            raise ActionNotFound.new(action, nil)
-          end
+          return self.send(action)
         else
           raise ActionNotFound.new(action, nil)
         end

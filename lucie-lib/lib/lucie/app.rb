@@ -58,6 +58,7 @@ module Lucie
 private
 
     def call_method_invoking_process
+      autoload_controllers
       apply_validators
       pair_parameters
       call_action_on_controller
@@ -87,25 +88,38 @@ private
     end
 
     def controller_class
-      if task
-        @controller_class ||= [task.split("_").map{|i| i.capitalize}.join, "Controller"].join
-        Object.const_get(@controller_class.to_sym)
-      else
-        include_controller_for "application"
-        @controller_class = "ApplicationController"
-        @action = :help
-        Object.const_get(@controller_class.to_sym)
+      controller_class = begin
+        if task
+          [task.split("_").map{|i| i.capitalize}.join, "Controller"].join
+        else
+          @action = :help
+          "ApplicationController"
+        end
       end
-    rescue NameError
-      include_controller_for(task)
-      Object.const_get(@controller_class.to_sym)
+
+      begin
+        Object.const_get(controller_class.to_sym)
+      rescue NameError
+        self.exit_value = 255
+        raise ControllerNotFound.new task
+      end
     end
 
-    def include_controller_for(task)
-      require File.join([root, "app/controllers", "#{task}_controller"])
-    rescue LoadError
-      self.exit_value = 255
-      raise ControllerNotFound, task
+    def autoload_controllers
+      base_path = File.join([root, "app/controllers"])
+      $LOAD_PATH << base_path
+      Dir.glob(File.join([base_path, "*_controller.rb"])).each do |path|
+        filename = File.basename(path)
+        controller_name = filename.split(".rb").first
+        if controller_name.to_s.length > 0
+          const_name = controller_name.split("_").map!{|x| x.capitalize!}.join
+
+          # place the constant to the root namespace
+          Object.class_eval do
+            autoload const_name.to_sym, controller_name
+          end
+        end
+      end
     end
 
     def call_action_on_controller
