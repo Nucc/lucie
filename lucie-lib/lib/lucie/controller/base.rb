@@ -70,8 +70,10 @@ module Lucie
         raise ExitRequest, value
       end
 
-      def apply_action(action)
+      def apply_action(action, command = nil)
         if has_action? action
+          # pop the action name from the params[:args] list
+          command.shift unless command.nil?
           self.apply_before_filters
           return self.send(action)
         else

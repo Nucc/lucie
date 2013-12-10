@@ -100,6 +100,12 @@ describe App do
     end
   end
 
+  should "remove the task from the params[:args] when method is found" do
+    assert_output "arg1", "" do
+      TestApp.run("method_should_be_removed call_this_method arg1 arg2")
+    end
+  end
+
   should "have a root directory which is the directory contains the bin and app folders" do
     assert_equal File.expand_path("../..", __FILE__), TestApp.init("", nil).root
   end

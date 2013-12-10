@@ -124,10 +124,7 @@ private
 
     def call_action_on_controller
       begin
-        self.exit_value = controller.send(:apply_action, action)
-
-        # pop the args[0] element because this is the method
-        command.shift
+        self.exit_value = controller.send(:apply_action, action, command)
       rescue ActionNotFound
         self.exit_value = controller.send(:apply_action, :no_method)
       end

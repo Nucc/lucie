@@ -67,3 +67,9 @@ class DerivedController < CallIndexController
     print "new_method"
   end
 end
+
+class MethodShouldBeRemovedController < Controller::Base
+  def call_this_method
+    print params[:args][0]
+  end
+end
