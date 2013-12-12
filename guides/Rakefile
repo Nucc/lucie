@@ -1,0 +1,30 @@
+require 'bundler/setup'
+require 'redcarpet'
+require 'action_view'
+require 'tocify'
+
+task :generate do
+  sources = {}
+  Dir.glob(File.expand_path("../tutorials/*.md", __FILE__)).each do |name|
+    pair = name.match("tutorials/(\\d+)_([^\.]+).md$").to_a
+    sources[pair[1]] = pair[2]
+  end
+
+  sources.sort.each do |key, filename|
+    File.open("public/#{filename}.html", "w") do |f|
+      toc = Redcarpet::Markdown.new(Redcarpet::Render::HTML_TOC,
+                                    :autolink => true,
+                                    :space_after_headers => true)
+
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(:with_toc_data => true, :hard_wrap => true),
+                                         :autolink => true,
+                                         :space_after_headers => true)
+
+      contents = toc.render(File.read("tutorials/#{key}_#{filename}.md"))
+      markdown_text = markdown.render( File.read("tutorials/#{key}_#{filename}.md"))
+
+      f << ActionView::Base.new(".", {:sources => sources.values, :filename => filename, :contents => contents})
+            .render(:layout => "layouts/index.html", :text => markdown_text)
+    end
+  end
+end

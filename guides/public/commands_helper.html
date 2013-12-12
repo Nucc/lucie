@@ -1,0 +1,103 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../assets/stylesheets/bootstrap.min.css" />
+    <link href='http://fonts.googleapis.com/css?family=Share+Tech' rel='stylesheet' type='text/css'>
+  </head>
+  <body class="container">
+    <br/>
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#" style='font-family: "Share Tech"; color: #333; font-size: 24px; font-weight: bold;'>Lucie Framework</a>
+      </div>
+    </nav>
+
+    <div class="row">
+      <div class="col-md-8">
+        <h1>Commands Helper</h1>
+        <ul>
+<li>
+<a href="#toc_0">Initialization</a>
+</li>
+<li>
+<a href="#toc_1">Methods</a>
+<ul>
+<li>
+<a href="#toc_2">1. Run command in shell</a>
+</li>
+<li>
+<a href="#toc_3">2. Filesystem operations</a>
+<ul>
+<li>
+<a href="#toc_4">2.1 Changing directory</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_5">3. System output</a>
+</li>
+</ul>
+</li>
+</ul>
+
+        <p>Commands Helper provides methods for terminal application.</p>
+
+<h2 id="toc_0">Initialization</h2>
+
+<p>Command Helper is part of the Lucie library but not included when the application starts. The reason is Lucie tries to be as fast as possible, so loading many library with the application would make it slow. When you want to use commands in your controller you need to include <code>Lucie::Commands</code> when the controller is initializating.</p>
+
+<pre><code>class WorkflowController &lt; Controller::Base
+  include Lucie::Commands
+end
+</code></pre>
+
+<h2 id="toc_1">Methods</h2>
+
+<h3 id="toc_2">1. Run command in shell</h3>
+
+<p>In the controller very often is required to call other system applications. For this case <code>sh(command)</code> is provided that returns the status of the command after execution.</p>
+
+<pre><code>class RepositoryController &lt; Controller::Base
+
+  def init
+    status = sh &quot;git init .&quot;
+    print output
+  end
+
+end
+</code></pre>
+
+<p>Running the application:</p>
+
+<pre><code>app repository init
+</code></pre>
+
+<h3 id="toc_3">2. Filesystem operations</h3>
+
+<p>Filesystem is the basic part of every application, but for a shell application it&#39;s particular. Changing directory, change permission or owner of a file, remove files or directories are basic operations in terminals. Ruby provides a full library just for file and directory operations, so you can use those as well. Here there will be some methods which are very similar to commands in shell.</p>
+
+<h4 id="toc_4">2.1 Changing directory</h4>
+
+<p>The following code changes the current directory to <code>/tmp</code> and prints out the current directory to stdout</p>
+
+<pre><code>def init
+  cd &quot;/tmp&quot;
+  puts pwd
+end
+
+# /tmp
+</code></pre>
+
+<h3 id="toc_5">3. System output</h3>
+
+      </div>
+      <div class="col-md-4">
+        <div class="list-group">
+            <a href="introduction.html" class="list-group-item ">Introduction</a>
+            <a href="installation.html" class="list-group-item ">Installation</a>
+            <a href="commands_helper.html" class="list-group-item active">Commands Helper</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
