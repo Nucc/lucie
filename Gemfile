@@ -10,3 +10,7 @@ if ENV["TRAVIS"]
 
   gem "open4", "1.3.0"
 end
+
+if ENV["heroku"]
+  gem "rack"
+end
