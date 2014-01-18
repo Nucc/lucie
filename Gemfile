@@ -1,7 +1,12 @@
 source 'https://rubygems.org'
 
-gemspec
+# Lucie guides
+if ENV["heroku"]
+  gem "rack"
+  return
+end
 
+# Travis CI system
 if ENV["TRAVIS"]
   gem "rake"
   gem "minitest", "~>4.6.0"
@@ -11,6 +16,4 @@ if ENV["TRAVIS"]
   gem "open4", "1.3.0"
 end
 
-if ENV["heroku"]
-  gem "rack"
-end
+gemspec
