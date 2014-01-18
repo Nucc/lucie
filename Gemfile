@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 # Lucie guides
+# heroku labs:enable user-env-compile required
 if ENV["heroku"]
   gem "rack"
   return

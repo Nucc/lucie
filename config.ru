@@ -18,9 +18,9 @@ run lambda { |env|
       env["REQUEST_PATH"] = "/introduction.html" if env["REQUEST_PATH"] == "/"
 
       # To avoid "../../sensitive_data", expand_path cuts the leading ".." chars.
-      normalized_path = File.expand_path("/", env["REQUEST_PATH"])
+      normalized_path = File.expand_path(env["REQUEST_PATH"])
 
-      File.open(File.join("guides/public", normalized_path), File::RDONLY)
+      File.open(File.join("./guides/public", normalized_path), File::RDONLY)
     end
   ]
 }
