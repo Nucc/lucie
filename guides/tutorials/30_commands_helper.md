@@ -2,7 +2,7 @@ Commands Helper provides methods for terminal application.
 
 ## Initialization
 
-Command Helper is part of the Lucie library but not included when the application is starting. The reason is Lucie tries to be as fast as possible, and loading so many library with the application would make it slow. When you want to use commands in your controller you need to include <code>Lucie::Commands</code> when the controller is initializating.
+Command Helper is part of the Lucie library but it's not imported when the application starts. The reason is Lucie tries to be as fast as possible and loading too many libraries with the application would make it slow. When you want to use commands in your controller you need to include <code>Lucie::Commands</code> when the controller is initializating.
 
     class WorkflowController < Controller::Base
       include Lucie::Commands
@@ -12,7 +12,7 @@ Command Helper is part of the Lucie library but not included when the applicatio
 
 ### 1. Run command in shell
 
-In the controller very often is required to call other system applications. For this case <code>sh(command)</code> is provided that returns the status of the command after execution.
+Very often is required in the controller to call other system applications. <code>sh(command)</code> is for executing other applications. It returns true, if the response
 
     class RepositoryController < Controller::Base
 

@@ -12,8 +12,15 @@
       </div>
     </nav>
 
-    <div class="row">
-      <div class="col-md-8">
+    <div class="row-fluid">
+      <div class="col-md-4">
+        <div class="list-group">
+            <a href="introduction.html" class="list-group-item ">Introduction</a>
+            <a href="installation.html" class="list-group-item ">Installation</a>
+            <a href="commands_helper.html" class="list-group-item active">Commands Helper</a>
+        </div>
+      </div>
+      <div class="col-md-8" style="text-align: justify;">
         <h1>Commands Helper</h1>
         <ul>
 <li>
@@ -44,7 +51,7 @@
 
 <h2 id="toc_0">Initialization</h2>
 
-<p>Command Helper is part of the Lucie library but not included when the application is starting. The reason is Lucie tries to be as fast as possible, and loading so many library with the application would make it slow. When you want to use commands in your controller you need to include <code>Lucie::Commands</code> when the controller is initializating.</p>
+<p>Command Helper is part of the Lucie library but it&#39;s not imported when the application starts. The reason is Lucie tries to be as fast as possible and loading too many libraries with the application would make it slow. When you want to use commands in your controller you need to include <code>Lucie::Commands</code> when the controller is initializating.</p>
 
 <pre><code>class WorkflowController &lt; Controller::Base
   include Lucie::Commands
@@ -55,7 +62,7 @@ end
 
 <h3 id="toc_2">1. Run command in shell</h3>
 
-<p>In the controller very often is required to call other system applications. For this case <code>sh(command)</code> is provided that returns the status of the command after execution.</p>
+<p>Very often is required in the controller to call other system applications. <code>sh(command)</code> is for executing other applications. It returns true, if the response</p>
 
 <pre><code>class RepositoryController &lt; Controller::Base
 
@@ -91,13 +98,16 @@ end
 <h3 id="toc_5">3. System output</h3>
 
       </div>
-      <div class="col-md-4">
-        <div class="list-group">
-            <a href="introduction.html" class="list-group-item ">Introduction</a>
-            <a href="installation.html" class="list-group-item ">Installation</a>
-            <a href="commands_helper.html" class="list-group-item active">Commands Helper</a>
-        </div>
-      </div>
     </div>
   </body>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-39736370-1', 'luc.ie');
+    ga('send', 'pageview');
+  </script>
 </html>
