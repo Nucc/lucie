@@ -12,6 +12,21 @@ When a Lucie based application is executed, first it dispatches the request and 
 
 Controller implements the business logic, using models and templates for data source and representation. Model uses database to store and fetch data.
 
+### Installation
+
+Lucie provides gem <code>lucie-bin</code> to initialize an application. First you will need to install this on your system.
+
+    gem install lucie-bin
+
+You can create a new project with command <code>lucie</code> now.
+
+    lucie new my_application
+
+You can try out your new application with running its executable file:
+
+    ./my_application/bin/my_application --help
+
+
 ### Directory structure
 
 <table>
