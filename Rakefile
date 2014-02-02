@@ -1,4 +1,7 @@
 require "bundler/gem_tasks"
+require "yard"
+
+PROJECT_DIR = File.dirname(__FILE__)
 
 SUBPROJECTS = %w(lucie-lib lucie-bin lucie-cmd)
 
@@ -22,4 +25,10 @@ namespace :update do
     end
     system "bundle update"
   end
+end
+
+task :doc => :yard
+
+YARD::Rake::YardocTask.new do |t|
+  t.files   = ['lucie-*/lib/**/*']   # optional
 end

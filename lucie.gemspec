@@ -17,4 +17,6 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency "lucie-lib", version
   gem.add_dependency "lucie-bin", version
+
+  gem.add_development_dependency "yard", "~> 0.8.7"
 end
