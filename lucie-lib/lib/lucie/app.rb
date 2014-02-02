@@ -1,34 +1,75 @@
-
-
 module Lucie
-  # App responsible for configuring and launch the application
-  # based on Lucie application framework.
+
+  #
+  # Lucie::App represents the application context. When a lucie application starts,
+  # it requires information about its environment, like root path, env, command. App
+  # also responsible for loading the right controller and to execute the process how the
+  # input will be parsed and the business logic is executed.
   #
   class App
 
     class << self
+      #
+      # Let the exception leave the application when any occur.
+      #
+      # Normally the application doesn't raise any exception, just stops quietly.
+      # When the application is under debugging, developer needs more, detailed description
+      # about the problem. Suggested to turn this attribute on during developing.
+      #
+      #  App.raise_exception = true
+      #
       attr_accessor :raise_exception
+
+      # Sets the log level of the application.
+      #
       attr_accessor :log_level
+
+      #
+      # Root directory of the source of application.
+      #
+      # Template and other source paths are calculated relatively to this directory.
+      #
       attr_accessor :root
+
       @raise_exception = false
       @log_level = :info
     end
 
+    # Command line input that is being executed. Usually it equals with ARGV.
+    #
     attr_reader :command
+
+    # Root of the application. Same as App.root, it's a reference for that.
+    #
     attr_reader :root
+
+    # The directory where from the application has been executed.
+    #
     attr_reader :pwd
 
+    # Initializes and starts the applicaiton. Shortcut for self.init && self.start
+    #
     def self.run(command = ARGV, root = nil, pwd = nil)
       root ||= File.expand_path("..", File.dirname(Kernel.caller[0]))
       instance = self.init(command, root, pwd)
       self.start(instance)
     end
 
+    # Initializes the application.
+    #
+    # @param command [Array or String]
+    # @param root [String] Path of the root of the app. [default: current application's path]
+    # @param pwd [String] Path of the terminal position.
+    #
     def self.init(command = ARGV, root = nil, pwd = nil)
       root ||= File.expand_path("..", File.dirname(Kernel.caller[0]))
       self.new(command, root, pwd)
     end
 
+    # Starts the application instance and returns its exit status.
+    #
+    # @param instance [App] Application instance
+    #
     def self.start(instance)
       instance.start
       instance.exit_value
@@ -43,14 +84,17 @@ module Lucie
       Dir.chdir(@pwd)
     end
 
+    # Starts the application.
     def start
       help? ? call_help : call_method_invoking_process
     end
 
+    # Exit status of the application
     def exit_value
       @exit_value
     end
 
+    # Environment of the application. Contains the ENV of the terminal.
     def env
       ENV
     end

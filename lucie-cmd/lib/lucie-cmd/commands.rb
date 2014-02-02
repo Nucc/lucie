@@ -1,6 +1,17 @@
 require 'open3'
 
 module Lucie
+
+  # Lucie provides library to work with command line applications in an
+  # easy way.
+  #
+  # In order to use these methods in your controller class you need to include
+  # it to the class.
+  #
+  #   class SampleController < Lucie::Controller::Base
+  #     include Lucie::Commands
+  #   end
+  #
   module Commands
 
   protected

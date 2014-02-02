@@ -25,6 +25,14 @@ $LOAD_PATH << File.expand_path("..", __FILE__)
 require "lucie/version"
 require "lucie/exceptions"
 
+
+# Lucie is a modular MVC terminal application framework. With Lucie easy to create
+# command line application using controllers to describe the process, models to store
+# additional data permanently, and views to generate configuration files for applications.
+#
+# Lucie-lib is a glue for these MVC components and provide additional helper methods to
+# support faster and easier developing.
+#
 module Lucie
 
   module Controller
