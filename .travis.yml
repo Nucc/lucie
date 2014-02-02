@@ -5,3 +5,5 @@ rvm:
   - 2.0.0
 env:
   - TRAVIS=1
+before_install:
+  - rm "Gemfile.lock"
