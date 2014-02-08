@@ -9,7 +9,7 @@ module Lucie
 
       class << self
         @validators = []
-        @params = CommandLineParser.new("")
+        @params = Core::CommandLineParser.new("")
       protected
         @before_filter_args = []
         attr_accessor :before_filter_args

@@ -2,6 +2,8 @@ require "test_helper"
 
 class CommandLineSlicerTest < MiniTest::Unit::TestCase
 
+  include Lucie::Core
+
   def test_empty
     assert_equal [], CommandLineSlicer.new("").to_a
   end

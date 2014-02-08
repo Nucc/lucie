@@ -2,6 +2,8 @@ require "test_helper"
 
 class CommandLineParserTest < MiniTest::Spec
 
+  include Core
+
   should "parse empty string" do
     parser = CommandLineParser.new ""
     hash = {:args => []}

@@ -35,6 +35,8 @@ require "lucie/exceptions"
 #
 module Lucie
 
+  include ::Lucie::Exceptions
+
   module Controller
     autoload :ExitRequest, "lucie/controller/exit_request"
   end

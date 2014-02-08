@@ -77,7 +77,7 @@ module Lucie
 
     def initialize(command, root, pwd = nil)
       @root = root
-      @command = CommandLineParser.new(command)
+      @command = Core::CommandLineParser.new(command)
       @exit_value ||= 0
       @task = nil
       @pwd = pwd || ENV["PWD"]
