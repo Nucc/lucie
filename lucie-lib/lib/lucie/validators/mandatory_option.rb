@@ -1,5 +1,8 @@
 module Lucie
   module Validators
+    #
+    # Mandatory option is able to force out an option or input for the application.
+    #
     module MandatoryOption
 
       class Validator < Base

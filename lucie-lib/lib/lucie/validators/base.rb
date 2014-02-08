@@ -1,4 +1,11 @@
 module Lucie
+  #
+  # Validators are useful to verify input data. Example for validator:
+  #
+  #   class Controller
+  #     optional "-h", "--help", "This is the help"
+  #   end
+  #
   module Validators
     class Base
       def initialize(*args)
