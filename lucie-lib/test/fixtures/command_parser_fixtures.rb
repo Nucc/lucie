@@ -26,15 +26,27 @@ class OptionalMandatoryController < Controller::Base
   end
 end
 
-class ParameterPairingController < Controller::Base
-  optional "-e", "--expression", "Search expression"
+class ParameterPairingMandatoryController < Controller::Base
+  mandatory "-e", "--expression", "Search expression"
 
   def search_short
-    print params[:expression]
+    print params[:e]
   end
 
   def search_long
+    print params[:expression]
+  end
+end
+
+class ParameterPairingOptionalController < Controller::Base
+  optional "-e", "--expression", "Search expression"
+
+  def search_short
     print params[:e]
+  end
+
+  def search_long
+    print params[:expression]
   end
 end
 
@@ -73,3 +85,4 @@ class MethodShouldBeRemovedController < Controller::Base
     print params[:args][0]
   end
 end
+

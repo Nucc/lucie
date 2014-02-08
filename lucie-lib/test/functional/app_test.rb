@@ -41,9 +41,18 @@ describe App do
     end
   end
 
-  should "be able to pair parameters" do
-    assert_output("some_string", nil) { TestApp.run("parameter_pairing search_short -e some_string") }
-    assert_output("some_string", nil) { TestApp.run("parameter_pairing search_long --expression some_string") }
+  should "be able to pair optional parameters" do
+    assert_output("some_string", nil) { TestApp.run("parameter_pairing_optional search_short -e some_string") }
+    assert_output("some_string", nil) { TestApp.run("parameter_pairing_optional search_long  -e some_string") }
+    assert_output("some_string", nil) { TestApp.run("parameter_pairing_optional search_short --expression some_string") }
+    assert_output("some_string", nil) { TestApp.run("parameter_pairing_optional search_long --expression some_string") }
+  end
+
+  should "be able to pair mandatory parameters" do
+    assert_output("some_string", nil) { TestApp.run("parameter_pairing_mandatory search_short -e some_string") }
+    assert_output("some_string", nil) { TestApp.run("parameter_pairing_mandatory search_long  -e some_string") }
+    assert_output("some_string", nil) { TestApp.run("parameter_pairing_mandatory search_short --expression some_string") }
+    assert_output("some_string", nil) { TestApp.run("parameter_pairing_mandatory search_long --expression some_string") }
   end
 
   should "write to stderr that no controller found when controller is missing" do

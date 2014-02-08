@@ -7,7 +7,10 @@ module Lucie
 
       class Validator < Base
         def apply(params)
-          fail RequestError.new(self) unless params[:"#{short_option.gsub(/^-*/, '')}"]
+          if !params[:"#{short_option.gsub(/^-*/, '')}"] &&
+             !params[:"#{long_option.gsub(/^--*/, '')}"]
+            fail RequestError.new(self)
+          end
         end
       end
 
