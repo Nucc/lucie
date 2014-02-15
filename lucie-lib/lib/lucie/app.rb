@@ -156,7 +156,7 @@ private
         filename = File.basename(path)
         controller_name = filename.split(".rb").first
         if controller_name.to_s.length > 0
-          const_name = controller_name.split("_").map!{|x| x.capitalize!}.join
+          const_name = Helpers::ControllerName.new(controller_name).capitalized
 
           # place the constant to the root namespace
           Object.class_eval do

@@ -37,6 +37,10 @@ module Lucie
 
   include ::Lucie::Exceptions
 
+  module Helpers
+    autoload :ControllerName, "lucie/helpers/controller_name"
+  end
+
   module Controller
     autoload :ExitRequest, "lucie/controller/exit_request"
   end
