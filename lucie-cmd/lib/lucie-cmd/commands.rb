@@ -46,31 +46,39 @@ module Lucie
     end
 
     def error(text)
-      $stderr.puts colorize(text, 31)
+      stderr colorize(text, 31)
     end
 
     def warn(text)
-      $stderr.puts colorize(text, 32)
+      stderr colorize(text, 32)
     end
 
     def notice(text)
-      $stderr.puts colorize(text, 33)
+      stderr colorize(text, 33)
     end
 
     def red(text)
-      puts colorize(text, 31)
+      stdout colorize(text, 31)
     end
 
     def green(text)
-      puts colorize(text, 32)
+      stdout colorize(text, 32)
     end
 
     def yellow(text)
-      puts colorize(text, 33)
+      stdout colorize(text, 33)
     end
 
     def colorize(text, color_code)
       "\e[#{color_code}m#{text}\e[0m"
+    end
+
+    def stderr(text)
+      $stderr.puts text
+    end
+
+    def stdout(text)
+      $stdout.puts  text
     end
 
   private

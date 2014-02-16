@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
 
   s.add_dependency "lucie-lib", version
+  s.add_dependency "lucie-cmd", version
   s.add_development_dependency "rake", "10.0.3"
   s.add_development_dependency "sdoc"
   s.add_development_dependency "minitest", "4.6"

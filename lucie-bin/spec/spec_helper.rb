@@ -1,4 +1,6 @@
 require_relative "../../lucie-lib/lib/lucie"
+require_relative "../app/boot"
+
 require 'minitest/autorun'
 require 'minitest/spec'
 

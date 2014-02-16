@@ -6,7 +6,6 @@ Signal.trap("INT") { exit 1 }
 $stdout.sync = true
 $stderr.sync = true
 
-require "bundler/setup"
-require "lucie"
+require_relative "../app/boot"
 
 App.run
