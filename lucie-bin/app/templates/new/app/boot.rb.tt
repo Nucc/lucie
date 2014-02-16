@@ -7,7 +7,7 @@ $stderr.sync = true
 require "rubygems"
 require "bundler/setup"
 require "lucie"
-require "lucie-cmd"
+# require "lucie-cmd"
 
 root = ARGV.shift
 
