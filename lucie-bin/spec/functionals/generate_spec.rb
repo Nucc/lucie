@@ -29,7 +29,7 @@ describe GenerateController do
       File.open(controller_path("controller_name2")) do |file|
         content = file.read
       end
-      expected = "class ControllerName2 < ApplicationController\nend"
+      expected = "class ControllerName2Controller < ApplicationController\nend"
 
       assert_equal expected, content
     end

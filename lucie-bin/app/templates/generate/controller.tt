@@ -1,2 +1,2 @@
-class <%= @controller.capitalized %> < ApplicationController
+class <%= @controller.capitalized %>Controller < ApplicationController
 end
