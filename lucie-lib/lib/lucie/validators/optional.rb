@@ -11,6 +11,11 @@ module Lucie
         base.extend(ClassMethods)
       end
 
+      def optional(*args)
+        v = Validator.new(args)
+        params.pair(v.short_option, v.long_option)
+      end
+
       module ClassMethods
         def optional(*args)
           self.validators << Validator.new(args)

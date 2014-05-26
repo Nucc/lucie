@@ -55,6 +55,20 @@ describe App do
     assert_output("some_string", nil) { TestApp.run("parameter_pairing_mandatory search_long --expression some_string") }
   end
 
+  should "be able to pair nested mandatory parameters" do
+    assert_output("some_string", nil) { TestApp.run("parameter_pairing_mandatory_nested nested_short -e some_string") }
+    assert_output("some_string", nil) { TestApp.run("parameter_pairing_mandatory_nested nested_long -e some_string") }
+    assert_output("some_string", nil) { TestApp.run("parameter_pairing_mandatory_nested nested_short --expression some_string") }
+    assert_output("some_string", nil) { TestApp.run("parameter_pairing_mandatory_nested nested_long --expression some_string") }
+  end
+
+  should "be able to pair nested optional parameters" do
+    assert_output("some_string", nil) { TestApp.run("parameter_pairing_optional_nested nested_short -e some_string") }
+    assert_output("some_string", nil) { TestApp.run("parameter_pairing_optional_nested nested_long -e some_string") }
+    assert_output("some_string", nil) { TestApp.run("parameter_pairing_optional_nested nested_short --expression some_string") }
+    assert_output("some_string", nil) { TestApp.run("parameter_pairing_optional_nested nested_long --expression some_string") }
+  end
+
   should "write to stderr that no controller found when controller is missing" do
     assert_output "", "Controller is not found for no_controller." do
       TestApp.run("no_controller")

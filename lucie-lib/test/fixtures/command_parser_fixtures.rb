@@ -38,6 +38,18 @@ class ParameterPairingMandatoryController < Controller::Base
   end
 end
 
+class ParameterPairingMandatoryNestedController < Controller::Base
+  def nested_short
+    mandatory "-e", "--expression", "Search expression"
+    print params[:e]
+  end
+
+  def nested_long
+    mandatory "-e", "--expression", "Search expression"
+    print params[:expression]
+  end
+end
+
 class ParameterPairingOptionalController < Controller::Base
   optional "-e", "--expression", "Search expression"
 
@@ -46,6 +58,18 @@ class ParameterPairingOptionalController < Controller::Base
   end
 
   def search_long
+    print params[:expression]
+  end
+end
+
+class ParameterPairingOptionalNestedController < Controller::Base
+  def nested_short
+    optional "-e", "--expression", "Search expression"
+    print params[:e]
+  end
+
+  def nested_long
+    optional "-e", "--expression", "Search expression"
     print params[:expression]
   end
 end

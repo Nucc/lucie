@@ -17,6 +17,7 @@ module Lucie
       def mandatory(*args)
         v = Validator.new(args)
         v.apply(params)
+        params.pair(v.short_option, v.long_option)
       end
 
       def self.included(base)
