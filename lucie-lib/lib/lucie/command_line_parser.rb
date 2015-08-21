@@ -52,7 +52,7 @@ module Lucie
         short_p = remove_dashes(short).to_sym
         long_p = remove_dashes(long).to_sym
 
-        if @options[short_p].class == String
+        if [String, TrueClass].include?(@options[short_p].class)
           @options[long_p] = @options[short_p]
         else
           @options[short_p] = @options[long_p]

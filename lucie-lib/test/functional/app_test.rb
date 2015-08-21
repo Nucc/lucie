@@ -69,6 +69,11 @@ describe App do
     assert_output("some_string", nil) { TestApp.run("parameter_pairing_optional_nested nested_long --expression some_string") }
   end
 
+  should "be able to pair nested optional boolean parameters" do
+    assert_output("true", nil) { TestApp.run("parameter_pairing_optional_nested nested_short -e") }
+    assert_output("true", nil) { TestApp.run("parameter_pairing_optional_nested nested_long -e") }
+  end
+
   should "write to stderr that no controller found when controller is missing" do
     assert_output "", "Controller is not found for no_controller." do
       TestApp.run("no_controller")
