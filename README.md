@@ -1,4 +1,4 @@
-# Lucie - Console Application Framework
+# Lucie&trade; - Console Application Framework
 
 ## Description
 
